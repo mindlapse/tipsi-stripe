@@ -7,7 +7,7 @@ case "${TRAVIS_OS_NAME}" in
     echo "Listing targets"
     android list targets
     echo "Creating AVD"
-    android create avd --force -n test -t android-21 --abi armeabi-v7a --skin WVGA800
+    android create avd --force -n test -t android-25 --abi armeabi-v7a --skin WVGA800
     echo "Starting emulator as a background process"
     emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window &
     echo "Waiting for emulator"
