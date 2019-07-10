@@ -46,7 +46,7 @@ export NODEJS_ORG_MIRROR=http://nodejs.org/dist
 
 $HOME/.nvm/nvm.sh
 echo "Installing node 8.9.0"
-nvm install 8.9.0
+nvm install v12.6.0
 
 echo "Installing npm 6"
 npm i npm@6 -g
