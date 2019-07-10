@@ -4,8 +4,12 @@ echo ".travis/before-ci.sh starting"
 
 case "${TRAVIS_OS_NAME}" in
   linux)
+    echo "Listing devices"
+    android list device
     echo "Listing targets"
     android list targets
+    echo "Listing avds"
+    android list avd
     echo "Creating AVD"
     android create avd --force -n test -t android-25 --abi armeabi-v7a --skin WVGA800
     echo "Starting emulator as a background process"
