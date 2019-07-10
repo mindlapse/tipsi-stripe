@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo ".travis/before-ci.sh starting"
+
 case "${TRAVIS_OS_NAME}" in
   linux)
     echo "Creating AVD"
@@ -17,3 +19,5 @@ esac
 
 echo "Starting appium"
 example_tmp/node_modules/.bin/appium --session-override > appium.out &
+
+echo ".travis/before-ci.sh complete"

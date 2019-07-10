@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo ".travis/ci.sh starting"
+
 cd example_tmp
 npm run configure
 
@@ -13,3 +15,5 @@ case "${TRAVIS_OS_NAME}" in
     npm run test:android
   ;;
 esac
+
+echo ".travis/ci.sh complete"
