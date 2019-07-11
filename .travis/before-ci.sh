@@ -51,7 +51,8 @@ case "${TRAVIS_OS_NAME}" in
       EMU_PARAMS="-no-boot-anim -gpu off"
     fi
     # use the absolute emulator path in case older version installed (on default path)
-    $ANDROID_HOME/emulator/emulator -avd test -no-audio $EMU_PARAMS &
+    echo "### Starting emulator"
+    emulator -avd test -no-audio $EMU_PARAMS &
 
     android-wait-for-emulator
     echo "Sleeping for 60"
