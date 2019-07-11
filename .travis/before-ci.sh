@@ -10,8 +10,10 @@ case "${TRAVIS_OS_NAME}" in
     android list targets
     echo "Listing avds"
     android list avd
+    echo "Listing available component"
+    sdkmanager --list
     echo "Creating AVD"
-    echo 'no' | avdmanager create avd --abi armeabi-v7a --name test --force -t android-28
+    echo 'no' | android create avd --abi armeabi-v7a --name test --force -t android-28
     echo "Starting emulator as a background process"
     emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window &
     echo "Waiting for emulator"
