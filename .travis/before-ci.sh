@@ -21,13 +21,13 @@ case "${TRAVIS_OS_NAME}" in
     mkdir -p ~/.android
     touch ~/.android/repositories.cfg
     # Accept licenses before installing components, no need to echo y for each component
-    yes | sdkmanager --licenses
+#    yes | sdkmanager --licenses
 
     # Platform tools
     sdkmanager "emulator" "tools" "platform-tools" > /dev/null
     sdkmanager --list | head -15
     # install older build tools (for emulator)
-    sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
+    yes | sdkmanager "build-tools;28.0.3" "platforms;android-28" > /dev/null
     Create and start emulator.
     sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
     sdkmanager --list | head -15
