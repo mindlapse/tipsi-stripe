@@ -41,7 +41,7 @@ case "${TRAVIS_OS_NAME}" in
     yes | sdkmanager "platforms;android-28" > /dev/null
     Create and start emulator.
     echo "### Install system-images;android-$SYS;$ABI"
-    yes | Zsdkmanager "system-images;android-$SYS;$ABI" > /dev/null
+    yes | sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
     sdkmanager --list | head -15
     echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
     avdmanager
