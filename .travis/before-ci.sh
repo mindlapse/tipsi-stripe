@@ -11,7 +11,7 @@ case "${TRAVIS_OS_NAME}" in
     echo "Listing avds"
     android list avd
     echo "Creating AVD"
-    echo 'no' | avdmanager create avd --abi armeabi-v7a --name test --force -k 'system-images;android-21;default;armeabi-v7a'
+    echo 'no' | avdmanager create avd --abi armeabi-v7a --name test --force -t android-28
     echo "Starting emulator as a background process"
     emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window &
     echo "Waiting for emulator"
