@@ -15,9 +15,11 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Downloading android tools"
     wget "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
     echo "### Install android tools"
-    unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+    unzip android-sdk-tools.zip -d ${ANDROID_HOME}
+    echo "### Removing android-sdk-tools.zip"
     rm android-sdk-tools.zip
     PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+    echo "### Set PATH to $PATH"
     # Silence warning.
     mkdir -p ~/.android
     touch ~/.android/repositories.cfg
@@ -25,6 +27,7 @@ case "${TRAVIS_OS_NAME}" in
 #    yes | sdkmanager --licenses
 
     # Platform tools
+    echo '### sdkmanager "emulator" "tools" "platform-tools"'
     sdkmanager "emulator" "tools" "platform-tools" > /dev/null
     sdkmanager --list | head -15
     # install older build tools (for emulator)
