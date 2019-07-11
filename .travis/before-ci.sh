@@ -14,8 +14,8 @@ case "${TRAVIS_OS_NAME}" in
     export ANDROID_HOME=~/android-sdk
     echo "### Downloading android tools"
     wget "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
-    echo "### Install android tools"
-    unzip android-sdk-tools.zip -d ${ANDROID_HOME}
+    echo "### Unzipping android tools"
+    unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
     echo "### Removing android-sdk-tools.zip"
     rm android-sdk-tools.zip
     PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
@@ -28,17 +28,20 @@ case "${TRAVIS_OS_NAME}" in
 
     # Platform tools
     echo '### sdkmanager "emulator"'
-    yes | sdkmanager "emulator"
+    yes | sdkmanager "emulator" > /dev/null
     echo '### sdkmanager "tools"'
-    yes | sdkmanager "tools"
+    yes | sdkmanager "tools" > /dev/null
     echo '### sdkmanager "platform-tools"'
-    yes | sdkmanager "platform-tools"
+    yes | sdkmanager "platform-tools" > /dev/null
     sdkmanager --list | head -15
     # install older build tools (for emulator)
-    echo "### Install build-tools and platform tools"
-    yes | sdkmanager "build-tools;28.0.3" "platforms;android-28"
+    echo "### Install build-tools"
+    yes | sdkmanager "build-tools;28.0.3" > /dev/null
+    echo "### Install platform tools"
+    yes | sdkmanager "platforms;android-28" > /dev/null
     Create and start emulator.
-    yes | sdkmanager "system-images;android-$SYS;$ABI"
+    echo "### Install system-images;android-$SYS;$ABI"
+    yes | Zsdkmanager "system-images;android-$SYS;$ABI" > /dev/null
     sdkmanager --list | head -15
     echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
     # fix timezone warning on osx
