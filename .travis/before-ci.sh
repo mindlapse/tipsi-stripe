@@ -15,7 +15,7 @@ case "${TRAVIS_OS_NAME}" in
     echo "Creating AVD"
     echo 'no' | android create avd --abi "google_apis/armeabi-v7a" --name test --force -t android-25
     echo "Starting emulator as a background process"
-    emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window &
+    emulator -avd test -scale 96dpi -dpi-device 160 -no-window &
     echo "Waiting for emulator"
     android-wait-for-emulator
     echo "Sleeping for 60"
