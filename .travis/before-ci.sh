@@ -41,9 +41,14 @@ case "${TRAVIS_OS_NAME}" in
     yes | sdkmanager "platforms;android-28" > /dev/null
     Create and start emulator.
     echo "### Install system-images;android-$SYS;$ABI"
-    yes | Zsdkmanager "system-images;android-$SYS;$ABI" > /dev/null
+    yes | sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
     sdkmanager --list | head -15
     echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
+    avdmanager
+    echo "### avdmanager list avd"
+    avdmanager list avd
+    echo "### avdmanager -list-avds"
+    avdmanager -list-avds
     # fix timezone warning on osx
     if [[ "${SYS}${ABI}" == "25google_apis;armeabi-v7a" || "${SYS}${ABI}" == "24google_apis;armeabi-v7a" ]]; then
       EMU_PARAMS="-no-window -gpu swiftshader"
