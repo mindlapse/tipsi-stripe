@@ -27,14 +27,18 @@ case "${TRAVIS_OS_NAME}" in
 #    yes | sdkmanager --licenses
 
     # Platform tools
-    echo '### sdkmanager "emulator" "tools" "platform-tools"'
-    sdkmanager "emulator" "tools" "platform-tools" > /dev/null
+    echo '### sdkmanager "emulator"'
+    sdkmanager "emulator"
+    echo '### sdkmanager "tools"'
+    sdkmanager "tools"
+    echo '### sdkmanager "platform-tools"'
+    sdkmanager "platform-tools"
     sdkmanager --list | head -15
     # install older build tools (for emulator)
     echo "### Install build-tools and platform tools"
-    yes | sdkmanager "build-tools;28.0.3" "platforms;android-28" > /dev/null
+    yes | sdkmanager "build-tools;28.0.3" "platforms;android-28"
     Create and start emulator.
-    sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
+    sdkmanager "system-images;android-$SYS;$ABI"
     sdkmanager --list | head -15
     echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
     # fix timezone warning on osx
