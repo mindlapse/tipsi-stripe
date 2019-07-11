@@ -12,8 +12,9 @@ case "${TRAVIS_OS_NAME}" in
     sdkmanager --list
     ANDROID_TOOLS=4333796 # android-28
     export ANDROID_HOME=~/android-sdk
-    wget -q "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
-    # Install android tools
+    echo "### Downloading android tools"
+    wget "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
+    echo "### Install android tools"
     unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
     rm android-sdk-tools.zip
     PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
@@ -27,6 +28,7 @@ case "${TRAVIS_OS_NAME}" in
     sdkmanager "emulator" "tools" "platform-tools" > /dev/null
     sdkmanager --list | head -15
     # install older build tools (for emulator)
+    echo "### Install build-tools and platform tools"
     yes | sdkmanager "build-tools;28.0.3" "platforms;android-28" > /dev/null
     Create and start emulator.
     sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
