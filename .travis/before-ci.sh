@@ -31,19 +31,23 @@ case "${TRAVIS_OS_NAME}" in
     # Platform tools
     echo '### sdkmanager "emulator"'
     yes | sdkmanager "emulator"
+    sdkmanager --list | head -20
     echo '### sdkmanager "tools"'
     yes | sdkmanager "tools"
+    sdkmanager --list | head -20
     echo '### sdkmanager "platform-tools"'
     yes | sdkmanager "platform-tools"
-    sdkmanager --list | head -15
+    sdkmanager --list | head -20
     # install older build tools (for emulator)
     echo "### Install build-tools"
-    yes | sdkmanager "build-tools;28.0.3" > /dev/null
+    yes | sdkmanager "build-tools;28.0.3"
+    sdkmanager --list | head -20
     echo "### Install platform tools"
-    yes | sdkmanager "platforms;android-28" > /dev/null
+    yes | sdkmanager "platforms;android-28"
+    sdkmanager --list | head -20
     echo "### Install system-images;android-$SYS;$ABI"
     yes | sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
-    sdkmanager --list | head -15
+    sdkmanager --list | head -20
     echo no | avdmanager create avd -n test -k "system-images;android-$SYS;$ABI"
     avdmanager
     echo "### avdmanager list avd"
