@@ -34,6 +34,6 @@ echo "Removing node modules"
 rm -rf node_modules
 
 echo "Calling npm install"
-npm install
+npm install > /dev/null
 
 echo ".travis/install.sh complete"

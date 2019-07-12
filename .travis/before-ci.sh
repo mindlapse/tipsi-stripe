@@ -9,7 +9,7 @@ case "${TRAVIS_OS_NAME}" in
     sleep 3 # give xvfb some time to start
 
     echo "Listing available component"
-    sdkmanager --list
+#    sdkmanager --list
     ANDROID_TOOLS=4333796 # android-28
     export ANDROID_HOME=~/android-sdk
     export ANDROID_SDK_ROOT=$ANDROID_HOME
@@ -29,22 +29,18 @@ case "${TRAVIS_OS_NAME}" in
 #    yes | sdkmanager --licenses
 
     # Platform tools
+    sdkmanager --list | head -15
     echo '### sdkmanager "emulator"'
-    yes | sdkmanager "emulator"
-    sdkmanager --list | head -20
+    yes | sdkmanager "emulator" > /dev/null
     echo '### sdkmanager "tools"'
-    yes | sdkmanager "tools"
-    sdkmanager --list | head -20
+    yes | sdkmanager "tools" > /dev/null
     echo '### sdkmanager "platform-tools"'
-    yes | sdkmanager "platform-tools"
-    sdkmanager --list | head -20
+    yes | sdkmanager "platform-tools" > /dev/null
     # install older build tools (for emulator)
     echo "### Install build-tools"
-    yes | sdkmanager "build-tools;28.0.3"
-    sdkmanager --list | head -20
+    yes | sdkmanager "build-tools;28.0.3" > /dev/null
     echo "### Install platform tools"
-    yes | sdkmanager "platforms;android-28"
-    sdkmanager --list | head -20
+    yes | sdkmanager "platforms;android-28" > /dev/null
     echo "### Install system-images;android-$SYS;$ABI"
     yes | sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
     sdkmanager --list | head -20
@@ -52,8 +48,6 @@ case "${TRAVIS_OS_NAME}" in
     avdmanager
     echo "### avdmanager list avd"
     avdmanager list avd
-    echo "### avdmanager -list-avds"
-    avdmanager -list-avds
 
     # fix timezone warning on osx
     if [[ "${SYS}${ABI}" == "25google_apis;armeabi-v7a" || "${SYS}${ABI}" == "24google_apis;armeabi-v7a" ]]; then

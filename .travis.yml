@@ -14,7 +14,7 @@ matrix:
 #      env:
 #        - JOB_NAME=PODSPEC_IOS
     - os: linux
-      language: android
+#      language: android
       jdk: oraclejdk8
       sudo: required
 #      android:
