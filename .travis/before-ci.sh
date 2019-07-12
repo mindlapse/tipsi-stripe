@@ -66,6 +66,9 @@ case "${TRAVIS_OS_NAME}" in
     sleep 60
     echo "Unlocking the device screen"
     adb shell input keyevent 82 &
+
+    # Prevent 'ENOSPC: System limit for number of file watchers reached' error
+    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
     ;;
 esac
 
