@@ -13,6 +13,7 @@ case "${TRAVIS_OS_NAME}" in
     ANDROID_TOOLS=4333796 # android-28
     export ANDROID_HOME=~/android-sdk
     export ANDROID_SDK_ROOT=$ANDROID_HOME
+    export ANDROID_AVD_HOME=~/.android/avd
     echo "### Downloading android tools"
     wget "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
     echo "### Unzipping android tools"
@@ -40,7 +41,6 @@ case "${TRAVIS_OS_NAME}" in
     yes | sdkmanager "build-tools;28.0.3" > /dev/null
     echo "### Install platform tools"
     yes | sdkmanager "platforms;android-28" > /dev/null
-    Create and start emulator.
     echo "### Install system-images;android-$SYS;$ABI"
     yes | sdkmanager "system-images;android-$SYS;$ABI" > /dev/null
     sdkmanager --list | head -15
@@ -60,6 +60,8 @@ case "${TRAVIS_OS_NAME}" in
     # use the absolute emulator path in case older version installed (on default path)
     echo "### ls $ANDROID_HOME"
     ls $ANDROID_HOME
+    echo "### ls $ANDROID_AVD_HOME"
+    ls $ANDROID_AVD_HOME
     echo "### ls $ANDROID_HOME/tools"
     ls $ANDROID_HOME/tools
     echo "### Starting emulator"
