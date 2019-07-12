@@ -30,11 +30,11 @@ case "${TRAVIS_OS_NAME}" in
 
     # Platform tools
     echo '### sdkmanager "emulator"'
-    yes | sdkmanager "emulator" > /dev/null
+    yes | sdkmanager "emulator"
     echo '### sdkmanager "tools"'
-    yes | sdkmanager "tools" > /dev/null
+    yes | sdkmanager "tools"
     echo '### sdkmanager "platform-tools"'
-    yes | sdkmanager "platform-tools" > /dev/null
+    yes | sdkmanager "platform-tools"
     sdkmanager --list | head -15
     # install older build tools (for emulator)
     echo "### Install build-tools"
@@ -60,8 +60,6 @@ case "${TRAVIS_OS_NAME}" in
     # use the absolute emulator path in case older version installed (on default path)
     echo "### ls $ANDROID_HOME"
     ls $ANDROID_HOME
-    echo "### ls $ANDROID_AVD_HOME"
-    ls $ANDROID_AVD_HOME
     echo "### ls $ANDROID_HOME/tools"
     ls $ANDROID_HOME/tools
     echo "### Starting emulator"
