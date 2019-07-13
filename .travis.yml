@@ -29,22 +29,26 @@ matrix:
       sudo: required
       android:
         components:
-          - tools
-          - platform-tools
-          - extra
+#          - tools
+#          - platform-tools
+#          - extra
           # The build tools used in the project
-          - build-tools-${ANDROID_BUILD_TOOLS_VERSION}
+#          - build-tools-${ANDROID_BUILD_TOOLS_VERSION}
 
           # The SDK used in the project
-          - android-${COMPILE_API_LEVEL}
+#          - android-${COMPILE_API_LEVEL}
 
           # For running the emulator in Travis
-          - android-${EMULATOR_API_LEVEL}
-          - sys-img-${EMULATOR_ABI}-android-${EMULATOR_API_LEVEL}
+#          - android-${EMULATOR_API_LEVEL}
+#          - sys-img-${EMULATOR_ABI}-android-${EMULATOR_API_LEVEL}
 
-          - extra-android-m2repository
-          - extra-google-m2repository
-          - extra-google-google_play_services
+#          - extra-android-m2repository
+#          - extra-google-m2repository
+#          - extra-google-google_play_services
+
+      env:
+        - JOB_NAME=ANDROID_5
+
 
 #          - build-tools-25.0.3
 #          - android-25
@@ -52,9 +56,6 @@ matrix:
 #          - extra-android-m2repository
 #          - extra-google-m2repository
 #          - extra-google-google_play_services
-      env:
-        - JOB_NAME=ANDROID_5
-
 #SYS=25 ABI="google_apis;arm64-v8a" ANDROID_SDK_ROOT=/home/travis/android-sdk
 
 cache:

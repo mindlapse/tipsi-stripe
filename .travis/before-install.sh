@@ -59,12 +59,33 @@ case "${TRAVIS_OS_NAME}" in
     travis_wait pod repo update --silent
   ;;
   linux)
-    sdkmanager --list | head -30
+#    sdkmanager --list | head -30
+#    touch ~/.android/repositories.cfg
+#
+#
+#
+#    echo ANDROID_HOME=$ANDROID_HOME
+#    export ANDROID_SDK_ROOT=/usr/local/android-sdk-25.2.3
+#    echo ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
+
+    export DISPLAY=:99.0
+    sh -e /etc/init.d/xvfb start
+    sleep 3 # give xvfb some time to start
+
+    ANDROID_TOOLS=4333796 # android-28
+    export ANDROID_HOME=~/android-sdk
+    echo "### Downloading android tools"
+    wget "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
+    echo "### Unzipping android tools"
+    unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+    echo "### Removing android-sdk-tools.zip"
+    rm android-sdk-tools.zip
+    PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+    echo "### Set PATH to $PATH"
+    # Silence warning.
+    mkdir -p ~/.android
     touch ~/.android/repositories.cfg
 
-    echo ANDROID_HOME=$ANDROID_HOME
-    export ANDROID_SDK_ROOT=/usr/local/android-sdk-25.2.3
-    echo ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 
 #    echo "### Uninstalling extras;google;google_play_services"
 #    yes | sdkmanager --uninstall "extras;google;google_play_services" > /dev/null
@@ -75,23 +96,36 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Installing platforms;android-${COMPILE_API_LEVEL} required by compiler"
     yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
 
-#    echo "### Updating tools"
-#    yes | sdkmanager "tools" #> /dev/null
-#
-#    echo "### Updating platform-tools"
-#    yes | sdkmanager "platform-tools" #> /dev/null
+    echo "### Updating tools"
+    yes | sdkmanager "tools" #> /dev/null
+
+    echo "### Updating platform-tools"
+    yes | sdkmanager "platform-tools" #> /dev/null
+
+    echo "### Updating extras"
+    yes | sdkmanager "extras" #> /dev/null
 
     echo "### Installing build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
     yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" > /dev/null
 
-    echo "### Uninstalling build-tools;25.0.2"
-    yes | sdkmanager --uninstall "build-tools;25.0.2" #> /dev/null
+    # The SDK used in the project
+    echo "### Installing android-${COMPILE_API_LEVEL}"
+    yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
 
-    echo "### Uninstalling platforms;android-25"
-    yes | sdkmanager --uninstall "platforms;android-25" #> /dev/null
+    # For running the emulator
+    echo "### Installing platforms;${EMULATOR_API_LEVEL}"
+    yes | sdkmanager "platforms;android-${EMULATOR_API_LEVEL}" > /dev/null
 
-#    echo "### Installing ${EMULATOR} system image"
-#    yes | sdkmanager "${EMULATOR}"
+
+
+#    echo "### Uninstalling build-tools;25.0.2"
+#    yes | sdkmanager --uninstall "build-tools;25.0.2" #> /dev/null
+#
+#    echo "### Uninstalling platforms;android-25"
+#    yes | sdkmanager --uninstall "platforms;android-25" #> /dev/null
+
+    echo "### Installing ${EMULATOR} system image"
+    yes | sdkmanager "${EMULATOR}"
 
     sdkmanager --list | head -30  # Print out package list for debug purposes
   ;;
