@@ -2,15 +2,43 @@
 
 echo ".travis/before-ci.sh starting"
 
+android-wait-for-emulator() {
+  set +e
+
+  bootanim=""
+  failcounter=0
+  timeout_in_sec=360
+
+  until [[ "$bootanim" =~ "stopped" ]]; do
+    bootanim=`adb -e shell getprop init.svc.bootanim 2>&1 &`
+    if [[ "$bootanim" =~ "device not found" || "$bootanim" =~ "device offline"
+      || "$bootanim" =~ "running" ]]; then
+      let "failcounter += 1"
+      echo "Waiting for emulator to start"
+      if [[ $failcounter -gt timeout_in_sec ]]; then
+        echo "Timeout ($timeout_in_sec seconds) reached; failed to start emulator"
+        exit 1
+      fi
+    fi
+    sleep 1
+  done
+
+  echo "Emulator is ready"
+}
+
+
 case "${TRAVIS_OS_NAME}" in
   linux)
+
+
+
 
     echo "### Using avdmanager $(which avdmanager)"
     echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}"
 
-    echo "### Using emulator ${ANDROID_SDK_ROOT}/emulator"
+    echo "### Using emulator $(dirname $(which emulator))"
     # Run emulator in a subshell, this seems to solve the travis QT issue
-    ( cd "${ANDROID_SDK_ROOT}/emulator" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -no-boot-anim -wipe-data & )
+    ( cd "$(dirname $(which emulator))" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -no-boot-anim -wipe-data & )
     android-wait-for-emulator
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
