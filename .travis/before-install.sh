@@ -81,7 +81,7 @@ case "${TRAVIS_OS_NAME}" in
     unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
     echo "### Removing android-sdk-tools.zip"
     rm android-sdk-tools.zip
-    PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+    PATH=${PATH}:${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
     echo "### Set PATH to $PATH"
     # Silence warning.
     mkdir -p ~/.android
