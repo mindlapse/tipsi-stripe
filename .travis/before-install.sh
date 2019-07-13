@@ -58,6 +58,16 @@ case "${TRAVIS_OS_NAME}" in
     gem install cocoapods -v 1.4.0
     travis_wait pod repo update --silent
   ;;
+  linux)
+    sdkmanager --list | head -15                                  # Print out package list for debug purposes
+#    sdkmanager --uninstall "extras;google;google_play_services"
+    yes | sdkmanager "tools"                                      # Update tools
+    yes | sdkmanager "platforms;android-${EMULATOR_API_LEVEL}"    # Android platform required by emulator
+    yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}"     # Android platform required by compiler
+    yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" # Android build tools
+    yes | sdkmanager "${EMULATOR}"                                # Install emulator system image
+    sdkmanager --list | head -15                                  # Print out package list for debug purposes
+  ;;
 esac
 
 echo "Installing react-native-cli"
