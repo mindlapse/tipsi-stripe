@@ -65,8 +65,8 @@ case "${TRAVIS_OS_NAME}" in
     echo ANDROID_HOME=$ANDROID_HOME
     echo ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 
-    echo "### Uninstalling extras;google;google_play_services"
-    yes | sdkmanager --uninstall "extras;google;google_play_services" > /dev/null
+#    echo "### Uninstalling extras;google;google_play_services"
+#    yes | sdkmanager --uninstall "extras;google;google_play_services" > /dev/null
 
     echo "### Updating tools"
     yes | sdkmanager "tools" > /dev/null

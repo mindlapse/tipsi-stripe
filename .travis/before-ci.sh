@@ -5,7 +5,9 @@ echo ".travis/before-ci.sh starting"
 case "${TRAVIS_OS_NAME}" in
   linux)
 
-    echo no | android create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}"
+    echo "### Using avdmanager $(which avdmanager)"
+    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}"
+    echo "### Using emulator $(which emulator)"
     # Run emulator in a subshell, this seems to solve the travis QT issue
     ( cd "$(dirname "$(which emulator)")" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -no-boot-anim -wipe-data & )
     android-wait-for-emulator
