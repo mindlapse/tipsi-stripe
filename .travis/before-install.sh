@@ -75,8 +75,8 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Installing platforms;android-${COMPILE_API_LEVEL} required by compiler"
     yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
 
-    echo "### Updating tools"
-    yes | sdkmanager "tools" > /dev/null
+#    echo "### Updating tools"
+#    yes | sdkmanager "tools" > /dev/null
 
     echo "### Installing build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
     yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" > /dev/null
