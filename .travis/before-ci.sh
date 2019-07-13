@@ -15,6 +15,9 @@ case "${TRAVIS_OS_NAME}" in
     sleep 30
     adb shell input keyevent 82 &
     adb devices
+
+    # Prevent 'ENOSPC: System limit for number of file watchers reached' error
+    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
   ;;
 #    export DISPLAY=:99.0
 #    sh -e /etc/init.d/xvfb start
