@@ -31,7 +31,6 @@ matrix:
         components:
           - tools
           - platform-tools
-          - tools
           - extra
           # The build tools used in the project
           - build-tools-${ANDROID_BUILD_TOOLS_VERSION}

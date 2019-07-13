@@ -63,8 +63,8 @@ case "${TRAVIS_OS_NAME}" in
     touch ~/.android/repositories.cfg
 
     echo ANDROID_HOME=$ANDROID_HOME
-    echo ANDROID_SDK_ROOT=/usr/local/android-sdk
-    export ANDROID_SDK_ROOT=/usr/local/android-sdk
+    export ANDROID_SDK_ROOT=/usr/local/android-sdk-25.2.3
+    echo ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
 
 #    echo "### Uninstalling extras;google;google_play_services"
 #    yes | sdkmanager --uninstall "extras;google;google_play_services" > /dev/null
@@ -76,7 +76,10 @@ case "${TRAVIS_OS_NAME}" in
     yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
 
 #    echo "### Updating tools"
-#    yes | sdkmanager "tools" > /dev/null
+#    yes | sdkmanager "tools" #> /dev/null
+#
+#    echo "### Updating platform-tools"
+#    yes | sdkmanager "platform-tools" #> /dev/null
 
     echo "### Installing build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
     yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" > /dev/null
