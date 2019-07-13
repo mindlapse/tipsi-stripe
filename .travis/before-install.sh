@@ -87,8 +87,8 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Uninstalling platforms;android-25"
     yes | sdkmanager --uninstall "platforms;android-25" #> /dev/null
 
-    echo "### Installing ${EMULATOR} system image"
-    yes | sdkmanager "${EMULATOR}"
+#    echo "### Installing ${EMULATOR} system image"
+#    yes | sdkmanager "${EMULATOR}"
 
     sdkmanager --list | head -30  # Print out package list for debug purposes
   ;;
