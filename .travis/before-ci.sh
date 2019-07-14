@@ -31,17 +31,17 @@ case "${TRAVIS_OS_NAME}" in
   linux)
 
 
-    echo "ANDROID_SDK_ROOT: ${ANDROID_SDK_ROOT}"
-    ls "${ANDROID_SDK_ROOT}"
-    ls "${ANDROID_SDK_ROOT}/emulator"
-    export PATH="~/android-sdk/emulator:${PATH}"
+#    echo "ANDROID_SDK_ROOT: ${ANDROID_SDK_ROOT}"
+#    ls "${ANDROID_SDK_ROOT}"
+#    ls "${ANDROID_SDK_ROOT}/emulator"
+#    export PATH="~/android-sdk/emulator:${PATH}"
 
     echo "### Using avdmanager $(which avdmanager)"
     echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "Nexus One"
 
     echo "### Using emulator $(dirname $(which emulator))"
     # Run emulator in a subshell, this seems to solve the travis QT issue
-    ( cd "$(dirname $(which emulator))" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -wipe-data > /dev/null 2>&1 & )
+    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -wipe-data > /dev/null 2>&1 & )
 #    ( cd "$(dirname $(which emulator))" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -no-boot-anim -wipe-data & )
     android-wait-for-emulator
     adb shell settings put global window_animation_scale 0 &
