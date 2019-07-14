@@ -29,7 +29,7 @@ case "${TRAVIS_OS_NAME}" in
   linux)
 
     echo "### Creating AVD ${EMULATOR_NAME} for image ${EMULATOR}"
-    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "Nexus One"
+    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "3.7in WVGA (Nexus One)"
 
     echo "### Starting emulator"
     # Run emulator in a subshell, this seems to solve the travis QT issue
