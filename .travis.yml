@@ -1,7 +1,7 @@
 env:
   global:
     - COMPILE_API_LEVEL=28
-    - EMULATOR_API_LEVEL=21              # It seems emulator levels 25,26,27 from main repos have google_apis by default, and do not support armeabi-v7a. Check commit comment.
+    - EMULATOR_API_LEVEL=24              # It seems emulator levels 25,26,27 from main repos have google_apis by default, and do not support armeabi-v7a. Check commit comment.
     - EMULATOR_TAG=default               # Possible values are default, google_apis, android-tv, android-wear, android-wear-cn
     - EMULATOR_ABI=armeabi-v7a           # Default is armeabi-v7a, possible options are: x86, x86_64, mips, arm64-v8a, armeabi-v7a. Note: check commit comment
     - EMULATOR_NAME=test

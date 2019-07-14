@@ -103,6 +103,9 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Updating platform-tools"
     yes | sdkmanager "platform-tools" #> /dev/null
 
+    echo "### Updating emulator"
+    yes | sdkmanager "emulator" #> /dev/null
+
     echo "### Updating extras"
     yes | sdkmanager "extras" #> /dev/null
 
