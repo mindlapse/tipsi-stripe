@@ -41,7 +41,7 @@ case "${TRAVIS_OS_NAME}" in
 
     echo "### Using emulator $(dirname $(which emulator))"
     # Run emulator in a subshell, this seems to solve the travis QT issue
-    ( cd "$(dirname $(which emulator))" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -wipe-data > /dev/null & )
+    ( cd "$(dirname $(which emulator))" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -wipe-data > /dev/null 2>&1 & )
 #    ( cd "$(dirname $(which emulator))" && ./emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -no-boot-anim -wipe-data & )
     android-wait-for-emulator
     adb shell settings put global window_animation_scale 0 &
