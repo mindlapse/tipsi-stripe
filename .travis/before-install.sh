@@ -94,39 +94,29 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Installing platforms;android-${COMPILE_API_LEVEL} required by compiler"
     yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
 
-    echo "### Installing platforms;android-${COMPILE_API_LEVEL} required by compiler"
-    yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
-
-    echo "### Updating tools"
-    yes | sdkmanager "tools" #> /dev/null
-
-    echo "### Updating platform-tools"
-    yes | sdkmanager "platform-tools" #> /dev/null
-
-    echo "### Updating emulator"
-    yes | sdkmanager "emulator" #> /dev/null
-
-    echo "### Updating extras"
-    yes | sdkmanager "extras" #> /dev/null
-
-    echo "### Installing build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
-    yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" > /dev/null
-
-    # The SDK used in the project
-    echo "### Installing android-${COMPILE_API_LEVEL}"
-    yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
-
-    # For running the emulator
     echo "### Installing platforms;${EMULATOR_API_LEVEL}"
     yes | sdkmanager "platforms;android-${EMULATOR_API_LEVEL}" > /dev/null
 
+    echo "### Installing tools"
+    yes | sdkmanager "tools" #> /dev/null
 
+    echo "### Installing platform-tools"
+    yes | sdkmanager "platform-tools" #> /dev/null
 
-#    echo "### Uninstalling build-tools;25.0.2"
-#    yes | sdkmanager --uninstall "build-tools;25.0.2" #> /dev/null
-#
-#    echo "### Uninstalling platforms;android-25"
-#    yes | sdkmanager --uninstall "platforms;android-25" #> /dev/null
+    echo "### Installing emulator"
+    yes | sdkmanager "emulator" #> /dev/null
+
+    echo "### Installing extras;android;m2repository"
+    yes | sdkmanager "extras;android;m2repository"
+
+    echo "### Installing extras;google;m2repository"
+    yes | sdkmanager "extras;google;m2repository"
+
+    echo "### Installing extras;google;google_play_services"
+    yes | sdkmanager "extras;google;google_play_services"
+
+    echo "### Installing build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+    yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" > /dev/null
 
     echo "### Installing ${EMULATOR} system image"
     yes | sdkmanager "${EMULATOR}"
