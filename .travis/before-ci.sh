@@ -37,7 +37,7 @@ case "${TRAVIS_OS_NAME}" in
     export PATH="~/android-sdk/emulator:${PATH}"
 
     echo "### Using avdmanager $(which avdmanager)"
-    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "4in WVGA (Nexus S)"
+    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "Nexus One"
 
     echo "### Using emulator $(dirname $(which emulator))"
     # Run emulator in a subshell, this seems to solve the travis QT issue
