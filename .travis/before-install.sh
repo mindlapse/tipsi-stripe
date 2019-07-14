@@ -98,28 +98,28 @@ case "${TRAVIS_OS_NAME}" in
     yes | sdkmanager "platforms;android-${EMULATOR_API_LEVEL}" > /dev/null
 
     echo "### Installing tools"
-    yes | sdkmanager "tools" #> /dev/null
+    yes | sdkmanager "tools" > /dev/null
 
     echo "### Installing platform-tools"
-    yes | sdkmanager "platform-tools" #> /dev/null
+    yes | sdkmanager "platform-tools" > /dev/null
 
     echo "### Installing emulator"
-    yes | sdkmanager "emulator" #> /dev/null
+    yes | sdkmanager "emulator" > /dev/null
 
     echo "### Installing extras;android;m2repository"
-    yes | sdkmanager "extras;android;m2repository"
+    yes | sdkmanager "extras;android;m2repository" > /dev/null
 
     echo "### Installing extras;google;m2repository"
-    yes | sdkmanager "extras;google;m2repository"
+    yes | sdkmanager "extras;google;m2repository" > /dev/null
 
     echo "### Installing extras;google;google_play_services"
-    yes | sdkmanager "extras;google;google_play_services"
+    yes | sdkmanager "extras;google;google_play_services" > /dev/null
 
     echo "### Installing build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
     yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" > /dev/null
 
     echo "### Installing ${EMULATOR} system image"
-    yes | sdkmanager "${EMULATOR}"
+    yes | sdkmanager "${EMULATOR}" > /dev/null
 
     sdkmanager --list | head -30  # Print out package list for debug purposes
   ;;
