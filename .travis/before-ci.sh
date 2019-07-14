@@ -31,7 +31,10 @@ case "${TRAVIS_OS_NAME}" in
   linux)
 
 
-
+    echo "ANDROID_SDK_ROOT: ${ANDROID_SDK_ROOT}"
+    ls "${ANDROID_SDK_ROOT}"
+    ls "${ANDROID_SDK_ROOT}/emulator"
+    export PATH="~/android-sdk/emulator:${PATH}"
 
     echo "### Using avdmanager $(which avdmanager)"
     echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}"
