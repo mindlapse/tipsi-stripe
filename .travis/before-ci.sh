@@ -7,7 +7,7 @@ android-wait-for-emulator() {
 
   bootanim=""
   failcounter=0
-  timeout_in_sec=360
+  timeout_in_sec=900
 
   until [[ "$bootanim" =~ "stopped" ]]; do
     bootanim=`adb -e shell getprop init.svc.bootanim 2>&1 &`
