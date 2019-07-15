@@ -33,7 +33,7 @@ public final class Errors {
     String errorCode = exceptionNameToErrorCode.get(simpleName);
 
     if (errorCode == null) {
-      errorCode = simpleName
+      errorCode = simpleName;
     }
 //    ArgCheck.nonNull(errorCode, simpleName);
 
