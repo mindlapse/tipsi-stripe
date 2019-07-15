@@ -95,8 +95,8 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Installing platform-tools"
     yes | sdkmanager "platform-tools" > /dev/null
 
-    echo "### Installing emulator"
-    yes | sdkmanager "emulator" > /dev/null
+#    echo "### Installing emulator"
+#    yes | sdkmanager "emulator" > /dev/null
 
     echo "### Installing extras;android;m2repository"
     yes | sdkmanager "extras;android;m2repository" > /dev/null
