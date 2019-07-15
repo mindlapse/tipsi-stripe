@@ -50,6 +50,12 @@ case "${TRAVIS_OS_NAME}" in
     gem install cocoapods -v 1.4.0
     travis_wait pod repo update --silent
   ;;
+  linux)
+    sdkmanager --list | head -30
+    yes | sdkmanager "platforms;android-28" > /dev/null
+    echo "Installed android-28"
+    sdkmanager --list | head -30
+  ;;
 esac
 
 npm install -g react-native-cli
