@@ -29,11 +29,11 @@ case "${TRAVIS_OS_NAME}" in
   linux)
 
     echo "### Creating AVD ${EMULATOR_NAME} for image ${EMULATOR}"
-    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "4in WVGA (Nexus S)"
+    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "3.7 FWVGA slider"
 
     echo "### Starting emulator"
     # Run emulator in a subshell, this seems to solve the travis QT issue
-    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -scale 96dpi -dpi-device 160 -memory 1024 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect > /dev/null 2>&1 & )
+    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -memory 512 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect > /dev/null 2>&1 & )
 
     android-wait-for-emulator
     adb shell settings put global window_animation_scale 0 &
