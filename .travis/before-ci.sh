@@ -33,7 +33,7 @@ case "${TRAVIS_OS_NAME}" in
 
     echo "### Starting emulator"
     # Run emulator in a subshell, this seems to solve the travis QT issue
-    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -memory 512 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect > /dev/null 2>&1 & )
+    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -memory 512 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu off -wipe-data > /dev/null 2>&1 & )
 
     android-wait-for-emulator
     adb shell settings put global window_animation_scale 0 &
@@ -45,7 +45,7 @@ case "${TRAVIS_OS_NAME}" in
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-    for i in {10..1..-1}
+    for i in {20..1..-1}
     do
       secondsLeft=$(($i*30))
       echo "Warming up, ${secondsLeft}s remaining..."
