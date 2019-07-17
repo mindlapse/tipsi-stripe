@@ -29,11 +29,11 @@ case "${TRAVIS_OS_NAME}" in
   linux)
 
     echo "### Creating AVD ${EMULATOR_NAME} for image ${EMULATOR}"
-    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "3.7in WVGA (Nexus One)"
+    echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "4in WVGA (Nexus S)"
 
     echo "### Starting emulator"
     # Run emulator in a subshell, this seems to solve the travis QT issue
-    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -scale 96dpi -dpi-device 160 -memory 512 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect > /dev/null 2>&1 & )
+    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -scale 96dpi -dpi-device 160 -memory 1024 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect > /dev/null 2>&1 & )
 
     android-wait-for-emulator
     adb shell settings put global window_animation_scale 0 &
@@ -41,10 +41,18 @@ case "${TRAVIS_OS_NAME}" in
     adb shell settings put global animator_duration_scale 0 &
     adb shell input keyevent 82 &
     adb devices
-    sleep 60
 
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+
+    for i in {10..1..-1}
+    do
+      echo "Warming up, $i s remaining..."
+      sleep 30
+    done
+    echo "Warmup complete."
+
   ;;
 esac
 
