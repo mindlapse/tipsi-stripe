@@ -45,10 +45,10 @@ case "${TRAVIS_OS_NAME}" in
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-
     for i in {10..1..-1}
     do
-      echo "Warming up, $i s remaining..."
+      secondsLeft=$(($i*30))
+      echo "Warming up, ${secondsLeft}s remaining..."
       sleep 30
     done
     echo "Warmup complete."
