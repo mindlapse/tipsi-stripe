@@ -10,6 +10,7 @@ init_new_example_project() {
     .appiumhelperrc
     package.json
     index.{ios,android}.js
+    android/appium-config.js
     android/build.gradle
     android/app/build.gradle
     android/gradle/wrapper/gradle-wrapper.properties

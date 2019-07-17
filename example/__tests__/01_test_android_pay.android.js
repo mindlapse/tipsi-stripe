@@ -10,10 +10,10 @@ test('Test if user can use Android Pay', async (t) => {
 
   await openTestSuite('Android Pay')
 
-  await driver.waitForVisible(header, 15000)
+  await driver.waitForVisible(header, 30000)
   t.pass('User should see `Android Pay Example` text')
 
-  await driver.waitForVisible(androidPayButton, 15000)
+  await driver.waitForVisible(androidPayButton, 30000)
   t.pass('User should see `Pay with Android Pay` button')
 
   // to be continued ...
