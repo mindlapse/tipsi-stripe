@@ -11,7 +11,7 @@
     "configure": "scripts/configure.sh",
     "build:android": "scripts/build-android.sh",
     "build:ios": "scripts/build-ios.sh",
-    "test:android": "TEST_SUITE=android appium-helper --platform android --driver-config ./android/appium-config.js",
+    "test:android": "TEST_SUITE=android appium-helper --platform android --driver-config ./android/appium-config.json",
     "test:ios": "TEST_SUITE=ios appium-helper --platform ios",
     "add-podfile": "scripts/add-podfile.sh",
     "set-stripe-url-type": "scripts/setUrlTypeForStripe.js"
