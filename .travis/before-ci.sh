@@ -61,10 +61,6 @@ case "${TRAVIS_OS_NAME}" in
 
     echo "Starting appium"
     example_tmp/node_modules/.bin/appium --session-override | tee  "${ANDROID_SDK_ROOT}/appium.out" &
-    echo `pwd`
-    cat `pwd`/android/appium-config.json
-    echo "--------------------"
-    cat ${ANDROID_SDK_ROOT}/appium.out
   ;;
   osx)
     echo "Starting appium"
