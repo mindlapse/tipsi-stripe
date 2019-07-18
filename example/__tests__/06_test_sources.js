@@ -25,6 +25,7 @@ test('Test if user can create a source object for a card', async (t) => {
   await driver.waitForVisible(sourceObjectId, timeout)
 })
 
+/*
 test('Test if user can create a source object for Alipay', async (t) => {
   const expectedSourcesResults = [false, true]
 
@@ -87,3 +88,4 @@ test('Test if user can create a source object for Alipay', async (t) => {
     }
   }
 })
+*/
