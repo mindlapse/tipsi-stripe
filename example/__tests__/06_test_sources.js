@@ -8,7 +8,7 @@ import idFromLabel from './common/idFromLabel'
 const { driver, idFromAccessId, idFromText, platform, select } = helper
 const idFromContentDesc = text => `//*[@content-desc="${text}"]`  // TODO move to tipsi-appium-helper
 
-const timeout = 120000
+const timeout = 150000
 
 test('Test if user can create a source object for a card', async (t) => {
   await openTestSuite('Sources')
