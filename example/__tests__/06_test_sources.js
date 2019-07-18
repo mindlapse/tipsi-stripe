@@ -36,8 +36,24 @@ test('Test if user can create a source object for Alipay', async (t) => {
     await driver.waitForVisible(sourceButtonId, timeout)
     t.pass('User should see `Create a source with params` button')
 
+
+
     await driver.click(sourceButtonId)
     t.pass('User should be able to tap on `Create source for Alipay payment` button')
+
+    const title = select({
+      ios: idFromLabel,
+      android: idFromContentDesc,
+    })('Alipay test payment page')
+    t.pass('User should be able to see `Alipay test payment page`')
+
+    await driver.waitForVisible(title, timeout)
+
+    let action = new wd.TouchAction();
+    action.press({x: 10, y: 100});
+    action.moveTo({x: 10, y: 300});
+    action.release();
+    await action.perform();
 
     const testPaymentButtonId = select({
       ios: idFromLabel,
