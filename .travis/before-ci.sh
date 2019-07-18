@@ -28,6 +28,8 @@ android-wait-for-emulator() {
 case "${TRAVIS_OS_NAME}" in
   linux)
 
+    # Cleanup (if rerun)
+    adb -s emulator-5554 emu kill || true
     adb kill-server || true
     avdmanager delete avd -n ${EMULATOR_NAME} || true
 
