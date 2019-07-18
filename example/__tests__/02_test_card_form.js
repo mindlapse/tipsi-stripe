@@ -30,15 +30,21 @@ test('Test if user can use Card Form', async (t) => {
 
   await openTestSuite('Card Form')
 
-  await driver.waitForVisible(cardFormButton, 15000)
+  await driver.waitForVisible(cardFormButton, 30000)
   t.pass('User should see `Enter you card and pay` button')
 
   await driver.click(cardFormButton)
   t.pass('User should be able to tap on `Enter you card and pay` button')
 
-  await driver.waitForVisible(numberInputId, 10000)
+  await driver.waitForVisible(numberInputId, 30000)
   await driver.click(numberInputId)
-  await driver.keys('424242424242424212/34123')
+  await driver.keys('4242424242424242')
+
+  await driver.waitForVisible(inputExpData)
+  await driver.keys('12/34')
+
+  await driver.waitForVisible(inputCVC)
+  await driver.keys('123')
 
   t.pass('User should be able write card data')
 
@@ -46,12 +52,12 @@ test('Test if user can use Card Form', async (t) => {
   // Verifies that all fields are filled
   if (platform('ios')) {
     for (const index of new Array(7)) { // eslint-disable-line no-unused-vars
-      await driver.waitForVisible(nextButtonId, 10000)
+      await driver.waitForVisible(nextButtonId, 30000)
       await driver.click(nextButtonId)
     }
   }
 
-  await driver.waitForEnabled(doneButtonId, 20000)
+  await driver.waitForEnabled(doneButtonId, 30000)
   await driver.click(doneButtonId)
   t.pass('User should be able to tap on `Done` button')
 

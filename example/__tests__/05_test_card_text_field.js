@@ -32,7 +32,7 @@ test('Test if user can use PaymentCardTextField component', async (t) => {
 
   await openTestSuite('Card Text Field')
 
-  await driver.waitForVisible(cardTextFieldId, 15000)
+  await driver.waitForVisible(cardTextFieldId, 30000)
   t.pass('User should see `PaymentCardTextField` component')
 
   /*
@@ -49,7 +49,13 @@ test('Test if user can use PaymentCardTextField component', async (t) => {
   t.pass('User should be able focus on `PaymentCardTextField` component')
 
   // Set card credentials
-  await driver.keys('424242424242424212/34123')
+  await driver.keys('4242424242424242')
+
+  await driver.waitForVisible(inputExpData)
+  await driver.keys('12/34')
+
+  await driver.waitForVisible(inputCVC)
+  await driver.keys('123')
 
   // Wait for expiration date and cvc
   t.pass('User should be able write card data on `PaymentCardTextField` component')
