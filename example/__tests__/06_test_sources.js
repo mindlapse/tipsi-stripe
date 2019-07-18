@@ -45,15 +45,10 @@ test('Test if user can create a source object for Alipay', async (t) => {
       ios: idFromLabel,
       android: idFromContentDesc,
     })('Alipay test payment page')
-    t.pass('User should be able to see `Alipay test payment page`')
 
     await driver.waitForVisible(title, timeout)
+    t.pass('User should be able to see `Alipay test payment page`')
 
-    let action = new driver.TouchAction();
-    action.press({x: 10, y: 100});
-    action.moveTo({x: 10, y: 300});
-    action.release();
-    await action.perform();
 
     const testPaymentButtonId = select({
       ios: idFromLabel,
