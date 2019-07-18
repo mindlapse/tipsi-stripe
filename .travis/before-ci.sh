@@ -28,6 +28,9 @@ android-wait-for-emulator() {
 case "${TRAVIS_OS_NAME}" in
   linux)
 
+    adb kill-server || true
+    avdmanager delete avd -n ${EMULATOR_NAME} || true
+
     echo "### Creating AVD ${EMULATOR_NAME} for image ${EMULATOR}"
     echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}" -d "3.7 FWVGA slider"
 
@@ -45,13 +48,13 @@ case "${TRAVIS_OS_NAME}" in
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-    for i in {20..1..-1}
-    do
-      secondsLeft=$(($i*30))
-      echo "Warming up, ${secondsLeft}s remaining..."
-      sleep 30
-    done
-    echo "Warmup complete."
+#    for i in {20..1..-1}
+#    do
+#      secondsLeft=$(($i*30))
+#      echo "Warming up, ${secondsLeft}s remaining..."
+#      sleep 30
+#    done
+#    echo "Warmup complete."
 
   ;;
 esac
