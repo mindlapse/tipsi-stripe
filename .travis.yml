@@ -42,3 +42,9 @@ install: .travis/install.sh
 before_script: .travis/before-ci.sh
 before_cache: .travis/before-cache.sh
 script: .travis/ci.sh
+
+
+addons:
+  artifacts:
+    paths:
+      - appium.out

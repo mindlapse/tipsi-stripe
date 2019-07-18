@@ -28,6 +28,6 @@
     "metro-react-native-babel-preset": "0.55.0",
     "tape-async": "2.3.0",
     "tipsi-appium-helper": "2.2.0",
-    "webdriverio": "5.11.6"
+    "webdriverio": "4.7.1"
   }
 }
