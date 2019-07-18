@@ -27,6 +27,7 @@ android-wait-for-emulator() {
 
 case "${TRAVIS_OS_NAME}" in
   linux)
+    sudo apt install -y moreutils
 
     # Cleanup (if rerun)
     adb -s emulator-5554 emu kill || true
@@ -50,7 +51,7 @@ case "${TRAVIS_OS_NAME}" in
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-    for i in 6 5 4 3 2 1
+    for i in 4 3 2 1
     do
       secondsLeft=$(($i*30))
       echo "Warming up, ${secondsLeft}s remaining..."
@@ -58,9 +59,14 @@ case "${TRAVIS_OS_NAME}" in
     done
     echo "Warmup complete."
 
+    echo "Starting appium"
+    example_tmp/node_modules/.bin/appium --session-override | ts "[appium]" | tee  "${ANDROID_SDK_ROOT}/appium.out" &
+  ;;
+  osx)
+    echo "Starting appium"
+    example_tmp/node_modules/.bin/appium --session-override > "${ANDROID_SDK_ROOT}/appium.out" &
+
   ;;
 esac
 
-echo "Starting appium"
-example_tmp/node_modules/.bin/appium --session-override > appium.out &
 
