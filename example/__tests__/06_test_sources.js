@@ -5,7 +5,7 @@ import nativeClick from './common/nativeClick'
 import clickUntilVisible from './common/clickUntilVisible'
 import idFromLabel from './common/idFromLabel'
 
-const { driver, idFromAccessId, idFromText, platform, select } = helper
+const { driver, idFromAccessId, idFromText, platform, select, swipe } = helper
 const idFromContentDesc = text => `//*[@content-desc="${text}"]`  // TODO move to tipsi-appium-helper
 
 const timeout = 150000
@@ -25,7 +25,6 @@ test('Test if user can create a source object for a card', async (t) => {
   await driver.waitForVisible(sourceObjectId, timeout)
 })
 
-/*
 test('Test if user can create a source object for Alipay', async (t) => {
   const expectedSourcesResults = [false, true]
 
@@ -50,6 +49,7 @@ test('Test if user can create a source object for Alipay', async (t) => {
     await driver.waitForVisible(title, timeout)
     t.pass('User should be able to see `Alipay test payment page`')
 
+    swipe(title, 1)  // Swipe up on title
 
     const testPaymentButtonId = select({
       ios: idFromLabel,
@@ -88,4 +88,3 @@ test('Test if user can create a source object for Alipay', async (t) => {
     }
   }
 })
-*/
