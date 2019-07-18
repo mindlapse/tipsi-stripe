@@ -49,7 +49,7 @@ test('Test if user can create a source object for Alipay', async (t) => {
 
     await driver.waitForVisible(title, timeout)
 
-    let action = new wd.TouchAction();
+    let action = new driver.TouchAction();
     action.press({x: 10, y: 100});
     action.moveTo({x: 10, y: 300});
     action.release();
