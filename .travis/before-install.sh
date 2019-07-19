@@ -52,8 +52,8 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     sdkmanager --list | head -30
-    yes | sdkmanager "platforms;android-28" > /dev/null
-    echo "Installed android-28"
+    yes | sdkmanager "platforms;android-28"
+    yes | sdkmanager "build-tools;28.0.3"
     sdkmanager --list | head -30
   ;;
 esac
