@@ -15,11 +15,7 @@ case "${TRAVIS_OS_NAME}" in
     android-wait-for-emulator
     adb shell input keyevent 82 &
 
-    #echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a --skin WVGA800
-    #emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window &
-    #android-wait-for-emulator
-    #sleep 60
-    #adb shell input keyevent 82 &
+    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
   ;;
 esac
 
