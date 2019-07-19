@@ -14,7 +14,7 @@ esac
 rm -rf node_modules && npm install
 
 react-native unlink $library_name
-react-native link
+react-native link --verbose
 
 case "${TRAVIS_OS_NAME}" in
   osx)
