@@ -10,6 +10,11 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     npm run build:android
+
+    echo "Appium version"
+    appium --version
+    echo "------------"
     npm run test:android
+    cat appium.out
   ;;
 esac
