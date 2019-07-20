@@ -5,5 +5,7 @@
   },
   "android": {
     "appPath": "./android/app/build/outputs/apk/release/app-release.apk"
-  }
+  },
+  "appiumHost": "localhost",
+  "appiumPort": "4723"
 }
