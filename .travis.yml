@@ -74,8 +74,8 @@ env:
     - ANDROID_API_LEVEL=28
     - ANDROID_BUILD_TOOLS_VERSION=28.0.3
     - ANDROID_ABI=armeabi-v7a
-    - TEST_EMULATOR_TARGET_ANDROID_API="android-21"
-    - TEST_EMULATOR_SYS_IMAGE="sys-img-armeabi-v7a-android-21"
+    - TEST_EMULATOR_TARGET_ANDROID_API="android-24"
+    - TEST_EMULATOR_SYS_IMAGE="sys-img-armeabi-v7a-android-24"
 matrix:
   include:
 #    - os: osx
