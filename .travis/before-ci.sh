@@ -11,13 +11,14 @@ case "${TRAVIS_OS_NAME}" in
 
     # Creating and waiting for emulator to run tests
     echo no | android create avd --force -n test -t "android-24" --abi "armeabi-v7a" -c 100M
-    QEMU_AUDIO_DRV=none emulator -avd test -no-window &
+    QEMU_AUDIO_DRV=none emulator -avd test -scale 96dpi -dpi-device 160 -no-audio -no-window &
     android-wait-for-emulator
     adb shell input keyevent 82 &
 
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
     sdkmanager --list | head -30
+    adb shell sh -c 'cmd package list packages -f'
   ;;
 esac
 
