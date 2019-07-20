@@ -14,7 +14,9 @@ case "${TRAVIS_OS_NAME}" in
     echo "Appium version"
     node_modules/.bin/appium --version
     echo "------------"
+    ps aux|grep appium
     npm run test:android
+    ps aux|grep appium
     cat ../appium.out
   ;;
 esac
