@@ -5,6 +5,6 @@
     "automationName" : "UiAutomator2",
     "uiautomator2ServerInstallTimeout" : 300000,
     "adbExecTimeout" : 180000,
-    "browserName" : "Browser"
+    "browserName" : "Chrome"
   }
 }
