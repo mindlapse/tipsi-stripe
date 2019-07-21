@@ -14,7 +14,8 @@ case "${TRAVIS_OS_NAME}" in
     # --skin WVGA800
 
     echo "Starting emulator"
-    QEMU_AUDIO_DRV=none emulator -avd test -scale 96dpi -dpi-device 160 -no-window &
+    QEMU_AUDIO_DRV=none emulator -avd test -no-window &
+    # -scale 96dpi -dpi-device 160
 
     android-wait-for-emulator
     sleep 60
