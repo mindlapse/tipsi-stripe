@@ -46,12 +46,12 @@ case "${TRAVIS_OS_NAME}" in
     # Run emulator in a subshell, this seems to solve the travis QT issue
     ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect -wipe-data > /dev/null 2>&1 & )
 
-    android-wait-for-emulator
-    echo "Sleeping for 60s"
-    sleep 60
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
+    android-wait-for-emulator
+    echo "Sleeping for 120s"
+    sleep 120
     adb shell input keyevent 82 &
     adb devices
 
