@@ -9,7 +9,7 @@ case "${TRAVIS_OS_NAME}" in
     # Update the emulator sys image
     echo "y" | android update sdk -a --no-ui --filter "sys-img-armeabi-v7a-android-24"
 
-    echo "Cretaing AVD"
+    echo "Creating AVD"
     echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a --skin WVGA800
 
     echo "Starting emulator"
