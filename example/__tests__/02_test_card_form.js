@@ -31,6 +31,7 @@ test('Test if user can use Card Form', async (t) => {
   const tokenId = idFromAccessId('cardFormToken')
 
   await openTestSuite('Card Form')
+  console.log(await driver.source())
 
   await driver.waitForVisible(cardFormButton, timeout)
   t.pass('User should see `Enter you card and pay` button')
