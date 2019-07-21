@@ -10,8 +10,7 @@ case "${TRAVIS_OS_NAME}" in
 #    echo "y" | android update sdk -a --no-ui --filter "sys-img-armeabi-v7a-android-24"
 
     echo "Creating AVD"
-    echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-    # --skin WVGA800
+    echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a --skin WVGA800
 
     echo "Starting emulator"
     QEMU_AUDIO_DRV=none emulator -avd test -no-window &
