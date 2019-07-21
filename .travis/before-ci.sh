@@ -13,7 +13,7 @@ case "${TRAVIS_OS_NAME}" in
     echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a --skin WVGA800
 
     echo "Starting emulator"
-    QEMU_AUDIO_DRV=none emulator -avd test -no-window &
+    QEMU_AUDIO_DRV=none emulator -avd test &
     # -scale 96dpi -dpi-device 160
 
     android-wait-for-emulator
