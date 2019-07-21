@@ -3,20 +3,21 @@
 case "${TRAVIS_OS_NAME}" in
   linux)
 
-    # Update sdk platform for emulator
-    echo "y" | android update sdk -a --no-ui --filter "android-24"
+#    # Update sdk platform for emulator
+#    echo "y" | android update sdk -a --no-ui --filter "android-24"
+#
+#    # Update the emulator sys image
+#    echo "y" | android update sdk -a --no-ui --filter "sys-img-armeabi-v7a-android-24"
 
-    # Update the emulator sys image
-    echo "y" | android update sdk -a --no-ui --filter "sys-img-armeabi-v7a-android-24"
-#    adb kill-server
-
-    echo "Cretaing AVD"
-    echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a --skin WVGA800
+    echo "Creating AVD"
+    echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a --skin WVGA800
 
     echo "Starting emulator"
-    QEMU_AUDIO_DRV=none emulator -avd test -scale 96dpi -dpi-device 160 -no-window &
+    QEMU_AUDIO_DRV=none emulator -avd test -no-window &
+    # -scale 96dpi -dpi-device 160
 
     android-wait-for-emulator
+    sleep 60
     adb shell input keyevent 82 &
 
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p

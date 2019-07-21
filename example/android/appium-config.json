@@ -2,7 +2,7 @@
   "desiredCapabilities" : {
     "newCommandTimeout" : 180000,
     "androidInstallTimeout" : 180000,
-    "automationName" : "UiAutomator2",
+    "automationName" : "UiAutomator1",
     "uiautomator2ServerInstallTimeout" : 300000,
     "adbExecTimeout" : 180000
   }
