@@ -4,6 +4,8 @@ import openTestSuite from './common/openTestSuite'
 
 const { driver, select, platform, idFromAccessId, idFromResourceId } = helper
 
+const timeout = 60000
+
 test('Test if user can use Card Form', async (t) => {
   const cardFormButton = idFromAccessId('cardFormButton')
   const numberInputId = select({
@@ -30,20 +32,20 @@ test('Test if user can use Card Form', async (t) => {
 
   await openTestSuite('Card Form')
 
-  await driver.waitForVisible(cardFormButton, 30000)
+  await driver.waitForVisible(cardFormButton, timeout)
   t.pass('User should see `Enter you card and pay` button')
 
   await driver.click(cardFormButton)
   t.pass('User should be able to tap on `Enter you card and pay` button')
 
-  await driver.waitForVisible(numberInputId, 30000)
+  await driver.waitForVisible(numberInputId, timeout)
   await driver.click(numberInputId)
   await driver.keys('4242424242424242')
 
-  await driver.waitForVisible(inputExpData)
+  await driver.waitForVisible(inputExpData, timeout)
   await driver.keys('12/34')
 
-  await driver.waitForVisible(inputCVC)
+  await driver.waitForVisible(inputCVC, timeout)
   await driver.keys('123')
 
   t.pass('User should be able write card data')
@@ -52,12 +54,12 @@ test('Test if user can use Card Form', async (t) => {
   // Verifies that all fields are filled
   if (platform('ios')) {
     for (const index of new Array(7)) { // eslint-disable-line no-unused-vars
-      await driver.waitForVisible(nextButtonId, 30000)
+      await driver.waitForVisible(nextButtonId, timeout)
       await driver.click(nextButtonId)
     }
   }
 
-  await driver.waitForEnabled(doneButtonId, 30000)
+  await driver.waitForEnabled(doneButtonId, timeout)
   await driver.click(doneButtonId)
   t.pass('User should be able to tap on `Done` button')
 

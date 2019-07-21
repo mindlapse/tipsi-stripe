@@ -49,8 +49,6 @@ test('Test if user can create a source object for Alipay', async (t) => {
     await driver.waitForVisible(title, timeout)
     t.pass('User should be able to see `Alipay test payment page`')
 
-    swipe(title, 1)  // Swipe up on title
-
     const testPaymentButtonId = select({
       ios: idFromLabel,
       android: idFromContentDesc,
@@ -74,7 +72,7 @@ test('Test if user can create a source object for Alipay', async (t) => {
     const returnToTheAppButtonId = select({
       ios: idFromLabel,
       android: idFromContentDesc,
-    })(select({ ios: 'Return to example', android: ' Return to Merchant' }))
+    })(select({ ios: 'Return to example', android: 'arrow--left--white Return to Merchant' }))
 
     await driver.waitForVisible(returnToTheAppButtonId, timeout)
     await driver.click(returnToTheAppButtonId)

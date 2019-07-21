@@ -3,6 +3,7 @@ import test from './utils/tape'
 import openTestSuite from './common/openTestSuite'
 
 const { driver, select, idFromAccessId, idFromResourceId } = helper
+const timeout = 60000
 
 test('Test if user can use PaymentCardTextField component', async (t) => {
   const cardTextFieldId = idFromAccessId('cardTextField')
@@ -32,7 +33,7 @@ test('Test if user can use PaymentCardTextField component', async (t) => {
 
   await openTestSuite('Card Text Field')
 
-  await driver.waitForVisible(cardTextFieldId, 30000)
+  await driver.waitForVisible(cardTextFieldId, timeout)
   t.pass('User should see `PaymentCardTextField` component')
 
   /*
@@ -51,10 +52,10 @@ test('Test if user can use PaymentCardTextField component', async (t) => {
   // Set card credentials
   await driver.keys('4242424242424242')
 
-  await driver.waitForVisible(inputExpData)
+  await driver.waitForVisible(inputExpData, timeout)
   await driver.keys('12/34')
 
-  await driver.waitForVisible(inputCVC)
+  await driver.waitForVisible(inputCVC, timeout)
   await driver.keys('123')
 
   // Wait for expiration date and cvc
