@@ -33,6 +33,8 @@ case "${TRAVIS_OS_NAME}" in
     adb -s emulator-5554 emu kill || true
     adb kill-server || true
     avdmanager delete avd -n ${EMULATOR_NAME} || true
+    echo "Android Home is $ANDROID_HOME"
+    which adb
 
     echo "### Creating AVD ${EMULATOR_NAME} for image ${EMULATOR}"
     echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}"
