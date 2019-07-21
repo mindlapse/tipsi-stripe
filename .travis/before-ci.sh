@@ -40,7 +40,7 @@ case "${TRAVIS_OS_NAME}" in
     cp "example/android/avd/config.ini" ~/.android/avd/${EMULATOR_NAME}.avd/config.ini
 
     echo "Using config.ini:"
-    cat "~/.android/avd/${EMULATOR_NAME}.avd/config.ini"
+    cat ~/.android/avd/${EMULATOR_NAME}.avd/config.ini
 
     echo "### Starting emulator"
     # Run emulator in a subshell, this seems to solve the travis QT issue
