@@ -44,9 +44,10 @@ case "${TRAVIS_OS_NAME}" in
 
     echo "### Starting emulator"
     # Run emulator in a subshell, this seems to solve the travis QT issue
-    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -memory 2048 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect -wipe-data > /dev/null 2>&1 & )
+    ( ${ANDROID_SDK_ROOT}/emulator/emulator -avd ${EMULATOR_NAME} -memory 512 -verbose -show-kernel -selinux permissive -no-audio -no-window -engine auto -gpu swiftshader_indirect -wipe-data > /dev/null 2>&1 & )
 
     android-wait-for-emulator
+    echo "Sleeping for 60s"
     sleep 60
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
@@ -57,13 +58,13 @@ case "${TRAVIS_OS_NAME}" in
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-    for i in 4 3 2 1
-    do
-      secondsLeft=$(($i*30))
-      echo "Warming up, ${secondsLeft}s remaining..."
-      sleep 30
-    done
-    echo "Warmup complete."
+#    for i in 4 3 2 1
+#    do
+#      secondsLeft=$(($i*30))
+#      echo "Warming up, ${secondsLeft}s remaining..."
+#      sleep 30
+#    done
+#    echo "Warmup complete."
 
     echo "Starting appium"
     example_tmp/node_modules/.bin/appium --session-override > "${ANDROID_SDK_ROOT}/appium.out" &
