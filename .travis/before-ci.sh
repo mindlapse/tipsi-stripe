@@ -37,7 +37,7 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Creating AVD ${EMULATOR_NAME} for image ${EMULATOR}"
     echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}"
     #-d "4.65in 720p (Galaxy Nexus)"
-    copy "example/android/avd/config.ini" "~/.android/avd/${EMULATOR_NAME}.avd/config.ini"
+    cp "example/android/avd/config.ini" "~/.android/avd/${EMULATOR_NAME}.avd/config.ini"
 
     echo "Using config.ini:"
     cat "~/.android/avd/${EMULATOR_NAME}.avd/config.ini"
