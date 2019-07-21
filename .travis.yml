@@ -95,10 +95,10 @@ matrix:
           - tools
           - build-tools-28.0.3
           - android-28
-          - android-24
+          - android-21
           - extra-android-support
           - extra-android-m2repository
-          - sys-img-armeabi-v7a-android-24
+          - sys-img-armeabi-v7a-android-21
           - extra-google-m2repository
           - extra-google-google_play_services
         licenses:
