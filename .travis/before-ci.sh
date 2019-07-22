@@ -27,16 +27,12 @@ android-wait-for-emulator() {
 
 case "${TRAVIS_OS_NAME}" in
   linux)
-    sudo apt install -y moreutils
 
     # Cleanup (if rerun)
     adb -s emulator-5554 emu kill || true
     adb kill-server || true
     avdmanager delete avd -n ${EMULATOR_NAME} || true
     adb start-server || true
-
-    echo "Android Home is $ANDROID_HOME"
-    which adb
 
     echo "### Creating AVD ${EMULATOR_NAME} for image ${EMULATOR}"
     echo no | avdmanager create avd --force -n ${EMULATOR_NAME} -k "${EMULATOR}"

@@ -27,7 +27,7 @@
     "appium": "1.10.0",
     "metro-react-native-babel-preset": "0.55.0",
     "tape-async": "2.3.0",
-    "tipsi-appium-helper": "mindlapse/tipsi-appium-helper#pr",
+    "tipsi-appium-helper": "mindlapse/tipsi-appium-helper#updates",
     "webdriverio": "4.7.1"
   }
 }
