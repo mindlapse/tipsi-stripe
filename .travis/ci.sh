@@ -12,9 +12,5 @@ case "${TRAVIS_OS_NAME}" in
     npm run build:android
     ps aux|grep appium
     npm run test:android || true
-    echo `pwd`
-    cat `pwd`/android/appium-config.json
-    echo "--------------------"
-    cat ${ANDROID_SDK_ROOT}/appium.out
   ;;
 esac
