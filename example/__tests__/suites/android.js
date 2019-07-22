@@ -1,5 +1,4 @@
 export default [
-  '00_test_initial',
   '01_test_android_pay.android',
   '02_test_card_form',
   '03_test_custom_card',
