@@ -7,6 +7,7 @@ import idFromLabel from './common/idFromLabel'
 
 const { driver, idFromAccessId, idFromText, platform, select, swipe } = helper
 const idFromContentDesc = text => `//*[@content-desc="${text}"]`  // TODO move to tipsi-appium-helper
+const contentDescContains = text => `//*[contains(@content-desc='${text}')]`
 
 const timeout = 300000
 
@@ -69,10 +70,11 @@ test('Test if user can create a source object for Alipay', async (t) => {
 
     t.pass('User should click on "Authorize Test Payment" button')
 
+    // Note: 'Return to Merchant' may be prefixed with 'arrow--left--white ' in some versions of Android
     const returnToTheAppButtonId = select({
       ios: idFromLabel,
-      android: idFromContentDesc,
-    })(select({ ios: 'Return to example', android: ' Return to Merchant' }))
+      android: contentDescContains,
+    })(select({ ios: 'Return to example', android: 'Return to Merchant' }))
 
     await driver.waitForVisible(returnToTheAppButtonId, timeout)
     await driver.click(returnToTheAppButtonId)
