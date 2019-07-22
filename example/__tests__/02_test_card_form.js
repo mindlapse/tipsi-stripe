@@ -4,7 +4,7 @@ import openTestSuite from './common/openTestSuite'
 
 const { driver, select, platform, idFromAccessId, idFromResourceId } = helper
 
-const timeout = 60000
+const timeout = 90000
 
 test('Test if user can use Card Form', async (t) => {
   const cardFormButton = idFromAccessId('cardFormButton')
