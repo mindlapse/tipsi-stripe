@@ -1,4 +1,5 @@
 export default [
+  '00_test_initial',
   '01_test_apple_pay.ios',
   '02_test_card_form',
   '03_test_custom_card',
