@@ -4,7 +4,7 @@ import openTestSuite from './common/openTestSuite'
 
 const { driver, select, platform, idFromAccessId, idFromResourceId } = helper
 
-const timeout = 90000
+const timeout = 60000
 
 test('Test if user can use Card Form', async (t) => {
   const cardFormButton = idFromAccessId('cardFormButton')
@@ -39,17 +39,32 @@ test('Test if user can use Card Form', async (t) => {
   await driver.click(cardFormButton)
   t.pass('User should be able to tap on `Enter you card and pay` button')
 
+  // Enter credit card number
   await driver.waitForVisible(numberInputId, timeout)
+  t.pass(`Element ${numberInputId} is visible`)
+
   await driver.click(numberInputId)
+  t.pass(`Element ${numberInputId} is clicked`)
+
+  await driver.waitForVisible(numberInputId, timeout)   // Fixes an issue that appears in Android 23 tests
+  t.pass(`Element ${numberInputId} is still visible`)
+
   await driver.keys('4242424242424242')
+  t.pass("User has keyed in their credit card number")
 
+
+  // Enter credit card expiry
   await driver.waitForVisible(inputExpData, timeout)
+  t.pass(`Element ${inputExpData}` is visible`)
   await driver.keys('12/34')
+  t.pass("User has keyed in the card's expiry date")
 
+
+  // Enter credit card CVC
   await driver.waitForVisible(inputCVC, timeout)
+  t.pass(`Element ${inputCVC}` is visible`)
   await driver.keys('123')
-
-  t.pass('User should be able write card data')
+  t.pass("User has keyed in the CVC")
 
   // Iterate over billing address fields (iOS only)
   // Verifies that all fields are filled
