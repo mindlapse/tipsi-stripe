@@ -72,7 +72,7 @@ test('Test if user can create a source object for Alipay', async (t) => {
     const returnToTheAppButtonId = select({
       ios: idFromLabel,
       android: idFromContentDesc,
-    })(select({ ios: 'Return to example', android: 'arrow--left--white Return to Merchant' }))
+    })(select({ ios: 'Return to example', android: ' Return to Merchant' }))
 
     await driver.waitForVisible(returnToTheAppButtonId, timeout)
     await driver.click(returnToTheAppButtonId)
