@@ -12,6 +12,7 @@ case "${TRAVIS_OS_NAME}" in
 esac
 
 rm -rf node_modules && npm ci
+npm i tipsi-stripe@../tipsi-stripe-latest.tgz --save
 
 echo "Unlinking $library_name"
 react-native unlink $library_name
