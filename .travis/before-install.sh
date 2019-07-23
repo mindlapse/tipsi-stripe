@@ -29,6 +29,7 @@ init_new_example_project() {
   react-native init $proj_dir_old --version $react_native_version
   rm -rf $proj_dir_old/__tests__
   cd ..
+  rm -rf $proj_dir_new
   mv tmp/$proj_dir_old $proj_dir_new
   rm -rf tmp
 
