@@ -72,7 +72,7 @@ case "${TRAVIS_OS_NAME}" in
     wget "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
 
     echo "### Unzipping android tools"
-    unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+    unzip -oq android-sdk-tools.zip -d ${ANDROID_HOME}
 
     echo "### Removing android-sdk-tools.zip"
     rm android-sdk-tools.zip
