@@ -50,7 +50,7 @@ echo "Installing node 8.9.0"
 nvm install v12.6.0
 
 echo "Installing npm@next"
-npm i npm@next -g
+sudo npm i npm@next -g
 
 
 case "${TRAVIS_OS_NAME}" in
@@ -121,7 +121,7 @@ case "${TRAVIS_OS_NAME}" in
 esac
 
 echo "Installing react-native-cli"
-npm install -g react-native-cli
+sudo npm install -g react-native-cli
 
 # Test propTypes
 echo "Calling npm ci"
