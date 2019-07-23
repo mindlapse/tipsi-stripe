@@ -9,6 +9,7 @@ init_new_example_project() {
   files_to_copy=(
     .appiumhelperrc
     package.json
+    package-lock.json
     index.{ios,android}.js
     android/appium-config.json
     android/build.gradle
@@ -122,8 +123,8 @@ echo "Installing react-native-cli"
 npm install -g react-native-cli
 
 # Test propTypes
-echo "Calling npm install"
-npm install
+echo "Calling npm ci"
+npm ci
 
 echo "Calling npm test"
 npm test

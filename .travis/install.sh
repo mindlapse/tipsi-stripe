@@ -11,7 +11,7 @@ case "${TRAVIS_OS_NAME}" in
   ;;
 esac
 
-rm -rf node_modules && npm install
+rm -rf node_modules && npm ci
 
 echo "Unlinking $library_name"
 react-native unlink $library_name
@@ -31,5 +31,5 @@ esac
 echo "Removing node modules"
 rm -rf node_modules
 
-echo "Calling npm install"
-npm install > /dev/null
+echo "Calling npm ci"
+npm ci > /dev/null
