@@ -29,6 +29,7 @@ init_new_example_project() {
   react-native init $proj_dir_old --version $react_native_version
   rm -rf $proj_dir_old/__tests__
   cd ..
+  rm -rf $proj_dir_new
   mv tmp/$proj_dir_old $proj_dir_new
   rm -rf tmp
 
@@ -48,8 +49,8 @@ $HOME/.nvm/nvm.sh
 echo "Installing node 8.9.0"
 nvm install v12.6.0
 
-echo "Installing npm 6"
-npm i npm@6 -g
+echo "Installing npm@next"
+sudo npm i npm@next -g
 
 
 case "${TRAVIS_OS_NAME}" in
@@ -120,7 +121,7 @@ case "${TRAVIS_OS_NAME}" in
 esac
 
 echo "Installing react-native-cli"
-npm install -g react-native-cli
+sudo npm install -g react-native-cli
 
 # Test propTypes
 echo "Calling npm ci"

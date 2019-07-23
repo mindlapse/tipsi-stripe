@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 library_name=$(node -p "require('./package.json').name")
 library_version=$(node -p "require('./package.json').version")
