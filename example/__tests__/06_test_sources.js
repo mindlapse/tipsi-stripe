@@ -4,8 +4,9 @@ import openTestSuite from './common/openTestSuite'
 import nativeClick from './common/nativeClick'
 import clickUntilVisible from './common/clickUntilVisible'
 import idFromLabel from './common/idFromLabel'
+import swipeUp from './common/swipeUp'
 
-const { driver, idFromAccessId, idFromText, platform, select, swipe } = helper
+const { driver, idFromAccessId, idFromText, platform, select, swipe, screenshot } = helper
 const idFromContentDesc = text => `//*[@content-desc="${text}"]`  // TODO move to tipsi-appium-helper
 const contentDescContains = text => `//*[contains(@content-desc='${text}')]`
 
@@ -49,6 +50,12 @@ test('Test if user can create a source object for Alipay', async (t) => {
 
     await driver.waitForVisible(title, timeout)
     t.pass('User should be able to see `Alipay test payment page`')
+
+    await screenshot()
+    await swipeUp(title)
+    t.pass('User can swipe up')
+    await screenshot()
+
 
     const testPaymentButtonId = select({
       ios: idFromLabel,
