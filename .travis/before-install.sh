@@ -49,7 +49,7 @@ echo "Installing node 8.9.0"
 nvm install v12.6.0
 
 echo "Installing npm 6"
-npm i npm@6 -g
+npm i npm@next -g
 
 
 case "${TRAVIS_OS_NAME}" in
