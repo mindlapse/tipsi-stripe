@@ -51,9 +51,16 @@ case "${TRAVIS_OS_NAME}" in
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
     echo "Sleeping for 120s"
-    sleep 120
+    sleep 60
     adb shell input keyevent 82 &
     adb devices
+
+
+    echo "Uploading a screenshot!"
+    adb shell screencap -p /sdcard/screen.png
+    adb pull /sdcard/screen.png ./screen.png
+    npx imgur-upload-cli ./screen.png
+
 
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
