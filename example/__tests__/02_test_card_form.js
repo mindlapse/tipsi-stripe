@@ -55,14 +55,14 @@ test('Test if user can use Card Form', async (t) => {
 
   // Enter credit card expiry
   await driver.waitForVisible(inputExpData, timeout)
-  t.pass(`Element ${inputExpData}` is visible`)
+  t.pass(`Element ${inputExpData} is visible`)
   await driver.keys('12/34')
   t.pass("User has keyed in the card's expiry date")
 
 
   // Enter credit card CVC
   await driver.waitForVisible(inputCVC, timeout)
-  t.pass(`Element ${inputCVC}` is visible`)
+  t.pass(`Element ${inputCVC} is visible`)
   await driver.keys('123')
   t.pass("User has keyed in the CVC")
 
