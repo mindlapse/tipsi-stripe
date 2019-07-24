@@ -78,8 +78,6 @@ case "${TRAVIS_OS_NAME}" in
 #    done
 #    echo "Warmup complete."
 
-    echo "Starting appium"
-    example_tmp/node_modules/.bin/appium --session-override > "${ANDROID_SDK_ROOT}/appium.out" &
   ;;
   osx)
     echo "Starting appium"
