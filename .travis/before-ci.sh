@@ -55,8 +55,8 @@ case "${TRAVIS_OS_NAME}" in
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
-    echo "Sleeping for 180s"
-    sleep 180
+    echo "Sleeping for 60s"
+    sleep 60
     adb shell input keyevent 82 &
     adb devices
 
