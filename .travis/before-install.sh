@@ -53,6 +53,8 @@ init_new_example_project() {
   echo "Copying $proj_dir_old files into $proj_dir_new"
   for i in ${files_to_copy[@]}; do
     if [ -e $proj_dir_old/$i ]; then
+      echo $proj_dir_old/$i
+      ls $proj_dir_new
       cp -Rp $proj_dir_old/$i $proj_dir_new/$i
     fi
   done
