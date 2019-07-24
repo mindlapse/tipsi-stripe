@@ -27,6 +27,10 @@ android-wait-for-emulator() {
 
 case "${TRAVIS_OS_NAME}" in
   linux)
+    export ANDROID_HOME=~/android-sdk
+    export PATH=${PATH}:${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+
+    ls ${ANDROID_HOME}
 
     # Cleanup (if rerun)
     adb -s emulator-5554 emu kill || true
