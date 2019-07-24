@@ -1,0 +1,46 @@
+# Depends on environment variables:
+# - ANDROID_HOME
+# - ANDROID_SDK_ROOT
+
+# Install Gradle 5.5
+
+
+
+FROM circleci/node:12.6.0
+
+RUN sudo apt-get install openjdk-8-jdk
+RUN sudo npm i npm@next -g
+
+ENV ANDROID_HOME ~/android-sdk
+RUN echo [$ANDROID_HOME]
+RUN echo aa $ANDROID_HOME
+RUN echo bb $ANDROID_HOME
+RUN echo $ANDROID_HOME
+ENV ANDROID_SDK_ROOT ~/android-sdk
+ENV PATH ${PATH}:${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+
+# Android 28 tools
+RUN wget -q "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" -O ~/android-sdk-tools.zip
+RUN sudo apt-get install -y unzip
+RUN mkdir -p $ANDROID_HOME
+RUN unzip -oq ~/android-sdk-tools.zip -d ${ANDROID_HOME}
+RUN rm ~/android-sdk-tools.zip
+
+
+# Silence warning.
+RUN echo `pwd`
+RUN mkdir -p ~/.android
+RUN touch ~/.android/repositories.cfg
+RUN yes | sdkmanager "platforms;android-${COMPILE_API_LEVEL}" > /dev/null
+RUN yes | sdkmanager "platforms;android-${EMULATOR_API_LEVEL}" > /dev/null
+RUN yes | sdkmanager "tools" > /dev/null
+RUN yes | sdkmanager "platform-tools" > /dev/null
+RUN yes | sdkmanager "emulator" > /dev/null
+RUN yes | sdkmanager "extras;android;m2repository" > /dev/null
+RUN yes | sdkmanager "extras;google;m2repository" > /dev/null
+RUN yes | sdkmanager "extras;google;google_play_services" > /dev/null
+RUN yes | sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" > /dev/null
+RUN yes | sdkmanager "${EMULATOR}" > /dev/null
+
+RUN sdkmanager --list | head -30  # Print out package list for debug purposes
+
