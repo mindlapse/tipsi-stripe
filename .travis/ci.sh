@@ -40,6 +40,9 @@ case "${TRAVIS_OS_NAME}" in
 
     ls ${ANDROID_HOME}
 
+    ls example_tmp/node_modules/
+    ls example_tmp/node_modules/.bin
+
     # Cleanup (if rerun)
     adb -s emulator-5554 emu kill || true
     adb kill-server || true
@@ -60,13 +63,14 @@ case "${TRAVIS_OS_NAME}" in
     ( ${ANDROID_HOME}/emulator/emulator -avd ${EMULATOR_NAME} -memory 1024 -verbose -show-kernel -selinux permissive -no-audio -no-window -gpu swiftshader_indirect -wipe-data > /dev/null 2>&1 & )
 
     android-wait-for-emulator
+    echo "Sleeping for 180s"
+    sleep 180
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
-    echo "Sleeping for 60s"
-    sleep 60
     adb shell input keyevent 82 &
     adb devices
+    screenshot
 
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p || true

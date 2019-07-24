@@ -14,6 +14,9 @@ esac
 rm -rf node_modules && npm ci
 npm i tipsi-stripe@../tipsi-stripe-latest.tgz --save
 
+ls example_tmp/node_modules/
+ls example_tmp/node_modules/.bin
+
 echo "Unlinking $library_name"
 react-native unlink $library_name
 
