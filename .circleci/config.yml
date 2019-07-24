@@ -30,6 +30,10 @@ jobs:
 
       - checkout
       - run: env
+      - run: .travis/before-install.sh
+      - run: .travis/install.sh
+      - run: .travis/before-ci.sh
+      - run: .travis/ci.sh
 
       # Download and cache dependencies
 #      - restore_cache:
