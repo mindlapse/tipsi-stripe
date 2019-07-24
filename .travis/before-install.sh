@@ -31,17 +31,15 @@ init_new_example_project() {
   ls
   react-native init $proj_dir_old --version $react_native_version || true
   echo ---------- example
-  ls example
+  ls -al example
   echo ---------- example/node_modules/
-  ls example/node_modules/
-  echo ---------- example/node_modules/
-  ls example/node_modules/
+  ls -al example/node_modules/
   echo ---------- example/node_modules/@react-native-community/
-  ls example/node_modules/@react-native-community/
+  ls -al example/node_modules/@react-native-community/
   echo ---------- example/node_modules/@react-native-community/cli/
-  ls example/node_modules/@react-native-community/cli/
+  ls -al example/node_modules/@react-native-community/cli/
   echo ---------- example/node_modules/@react-native-community/cli/build/
-  ls example/node_modules/@react-native-community/cli/build/
+  ls -al example/node_modules/@react-native-community/cli/build/
   echo ----------
 
   rm -rf $proj_dir_old/__tests__
