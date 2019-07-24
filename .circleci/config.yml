@@ -23,7 +23,7 @@ jobs:
       EMULATOR_ABI: armeabi-v7a
       EMULATOR_NAME: test
       ANDROID_BUILD_TOOLS_VERSION: 28.0.3
-      EMULATOR: system-images;android-${EMULATOR_API_LEVEL};${EMULATOR_TAG};${EMULATOR_ABI}
+      EMULATOR: system-images;android-24;default;armeabi-v7a
       TRAVIS_OS_NAME: linux
 
 
