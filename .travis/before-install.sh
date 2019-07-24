@@ -26,6 +26,8 @@ init_new_example_project() {
 
   mkdir tmp
   cd tmp
+  echo "Installing"
+  npm ci
   echo "Initializing react native project $react_native_version"
   echo react-native version `react-native --version`
   ls
