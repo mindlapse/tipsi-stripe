@@ -26,8 +26,6 @@ init_new_example_project() {
 
   mkdir tmp
   cd tmp
-  echo "Installing"
-  npm ci
   echo "Initializing react native project $react_native_version"
   echo react-native version `react-native --version`
   ls
@@ -145,8 +143,8 @@ echo "Installing react-native-cli"
 sudo npm install -g react-native-cli
 
 # Test propTypes
-echo "Calling npm ci"
-npm ci
+echo "Calling npm i"
+npm i
 
 echo "Calling npm test"
 npm test
