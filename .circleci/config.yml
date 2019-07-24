@@ -5,6 +5,7 @@
 version: 2
 jobs:
   build:
+
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -15,16 +16,24 @@ jobs:
       # - image: circleci/mongo:3.4.4
 
     working_directory: ~
+    environment:
+      COMPILE_API_LEVEL: 28
+      EMULATOR_API_LEVEL: 24
+      EMULATOR_TAG: default
+      EMULATOR_ABI: armeabi-v7a
+      EMULATOR_NAME: test
+      ANDROID_BUILD_TOOLS_VERSION: 28.0.3
+      EMULATOR: system-images;android-${EMULATOR_API_LEVEL};${EMULATOR_TAG};${EMULATOR_ABI}
+
 
     steps:
+
       - checkout
-      - run: echo "Hello"
-      - run: ls
-      - run: cwd
-      - run: pwd
-      - run: echo ~
-      - run: ls /
       - run: env
+      - run: .travis/before-install.sh
+      - run: .travis/install.sh
+      - run: .travis/before-ci.sh
+      - run: .travis/ci.sh
 
       # Download and cache dependencies
 #      - restore_cache:
