@@ -45,9 +45,11 @@ init_new_example_project() {
 # please use NODEJS_ORG_MIRROR
 export NODEJS_ORG_MIRROR=http://nodejs.org/dist
 
-$HOME/.nvm/nvm.sh
-echo "Installing node 8.9.0"
-nvm install v12.6.0
+#$HOME/.nvm/nvm.sh
+#echo "Installing node 8.9.0"
+#nvm install v12.6.0
+#
+echo node --version
 
 echo "Installing npm@next"
 sudo npm i npm@next -g
@@ -60,10 +62,6 @@ case "${TRAVIS_OS_NAME}" in
     travis_wait pod repo update --silent
   ;;
   linux)
-
-    export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
-    sleep 3 # give xvfb some time to start
 
     ANDROID_TOOLS=4333796 # android-28
     export ANDROID_HOME=~/android-sdk
