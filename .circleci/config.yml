@@ -24,6 +24,7 @@ jobs:
       EMULATOR_NAME: test
       ANDROID_BUILD_TOOLS_VERSION: 28.0.3
       EMULATOR: system-images;android-${EMULATOR_API_LEVEL};${EMULATOR_TAG};${EMULATOR_ABI}
+      TRAVIS_OS_NAME: linux
 
 
     steps:
