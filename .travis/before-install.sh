@@ -49,10 +49,13 @@ export NODEJS_ORG_MIRROR=http://nodejs.org/dist
 #echo "Installing node 8.9.0"
 #nvm install v12.6.0
 #
-echo node --version
+sudo apt-get install openjdk-8-jdk
+
+node --version
 
 echo "Installing npm@next"
 sudo npm i npm@next -g
+
 
 
 case "${TRAVIS_OS_NAME}" in
