@@ -50,16 +50,16 @@ case "${TRAVIS_OS_NAME}" in
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
-    echo "Sleeping for 60s"
-    sleep 60
+    echo "Sleeping for 180s"
+    sleep 180
     adb shell input keyevent 82 &
     adb devices
 
 
-    echo "Uploading a screenshot!"
-    adb shell screencap -p /sdcard/screen.png
-    adb pull /sdcard/screen.png ./screen.png
-    npx imgur-upload-cli ./screen.png
+#    echo "Uploading a screenshot!"
+#    adb shell screencap -p /sdcard/screen.png
+#    adb pull /sdcard/screen.png ./screen.png
+#    npx imgur-upload-cli ./screen.png
 
 
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
