@@ -10,7 +10,13 @@ case "${TRAVIS_OS_NAME}" in
   ;;
   linux)
     npm run build:android
-    ps aux|grep appium
+
+    filename=screencap.png
+    echo "Uploading a screenshot before starting tests"
+    adb shell screencap -p /sdcard/$filename
+    adb pull /sdcard/$filename ./$filename
+    npx imgur-upload-cli ./$filename
+
     npm run test:android || true
   ;;
 esac
