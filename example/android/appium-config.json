@@ -1,10 +1,11 @@
 {
   "desiredCapabilities" : {
-    "newCommandTimeout" : "300000",
-    "androidInstallTimeout" : "300000",
+    "newCommandTimeout" : "200000",
+    "androidInstallTimeout" : "200000",
     "automationName" : "uiautomator2",
-    "uiautomator2ServerInstallTimeout" : "300000",
-    "uiautomator2ServerLaunchTimeout" : "300000",
-    "adbExecTimeout" : "300000"
+    "uiautomator2ServerInstallTimeout" : "200000",
+    "uiautomator2ServerLaunchTimeout" : "200000",
+    "adbExecTimeout" : "200000",
+    "appWaitDuration" : "200000"
   }
 }
