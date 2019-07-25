@@ -33,7 +33,8 @@ jobs:
       - run: env
       - run: .travis/before-install.sh
       - run: .travis/install.sh
-      - run: .travis/ci.sh
+      - run:
+          command: .travis/ci.sh
           no_output_timeout: 30m
 
       # Download and cache dependencies
