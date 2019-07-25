@@ -32,7 +32,6 @@ screenshot() {
     npx imgur-upload-cli ./$filename
 }
 
-
 case "${TRAVIS_OS_NAME}" in
   linux)
     export ANDROID_HOME=~/android-sdk
