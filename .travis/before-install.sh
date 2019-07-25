@@ -58,8 +58,6 @@ echo "Installing npm@6.10.2"
 sudo npm i npm@6.10.2 -g
 
 
-TRAVIS_OS_NAME=skip
-
 case "${TRAVIS_OS_NAME}" in
   osx)
     echo "Installing cocoapods"
