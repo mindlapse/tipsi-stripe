@@ -54,7 +54,7 @@ case "${TRAVIS_OS_NAME}" in
     echo "### Starting emulator"
     # Run emulator in a subshell, this seems to solve the travis QT issue
     # ${ANDROID_HOME}/emulator/emulator -avd ${EMULATOR_NAME} -memory 2048 -verbose -show-kernel -selinux permissive -no-audio -no-window -gpu swiftshader_indirect -wipe-data
-    ( ${ANDROID_HOME}/emulator/emulator -avd ${EMULATOR_NAME} -memory 1024 -verbose -show-kernel -selinux permissive -no-audio -no-window -gpu swiftshader_indirect -wipe-data > /dev/null 2>&1 & )
+    ( ${ANDROID_HOME}/emulator/emulator -avd ${EMULATOR_NAME} -memory 3072 -verbose -show-kernel -selinux permissive -no-audio -no-window -gpu swiftshader_indirect -wipe-data > /dev/null 2>&1 & )
 
     android-wait-for-emulator
     echo "Sleeping for 240s"
