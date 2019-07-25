@@ -44,7 +44,11 @@ init_new_example_project() {
   ls -al example/node_modules/@react-native-community/cli/build/tools
   ls -al example/node_modules/@react-native-community/cli/build/tools
 
+
   cat example/node_modules/@react-native-community/cli/build/commands/install/install.js
+  cat example/node_modules/@react-native-community/cli/package.json
+  cat example/package-lock.json
+  cat example/node_modules/@react-native-community/cli/package-lock.json
 
   rm -rf $proj_dir_old/__tests__
   cd ..
