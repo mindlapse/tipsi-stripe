@@ -8,7 +8,6 @@ import swipeUp from './common/swipeUp'
 
 const { driver, idFromAccessId, idFromText, platform, select, swipe, screenshot } = helper
 const idFromContentDesc = text => `//*[@content-desc="${text}"]`  // TODO move to tipsi-appium-helper
-const contentDescContains = text => `//*[contains(@content-desc='${text}')]`
 
 const timeout = 300000
 
@@ -80,8 +79,9 @@ test('Test if user can create a source object for Alipay', async (t) => {
     // Note: 'Return to Merchant' may be prefixed with 'arrow--left--white ' in some versions of Android
     const returnToTheAppButtonId = select({
       ios: idFromLabel,
-      android: contentDescContains,
-    })(select({ ios: 'Return to example', android: 'Return to Merchant' }))
+      android: idFromContentDesc,
+    })(select({ ios: 'Return to example', android: 'arrow--left--white Return to Merchant' }))
+    console.log(await driver.source())
 
     await driver.waitForVisible(returnToTheAppButtonId, timeout)
     await driver.click(returnToTheAppButtonId)
