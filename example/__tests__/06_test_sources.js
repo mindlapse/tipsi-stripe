@@ -90,7 +90,7 @@ const alipay = async (t, target) => {
     console.log(await driver.source())
     throw e
   }
-})
+}
 
 
 test('Test if user can authorize test payment on a source object for Alipay', async (t) => {
