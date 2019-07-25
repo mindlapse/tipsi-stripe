@@ -66,7 +66,6 @@ case "${TRAVIS_OS_NAME}" in
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
     adb devices
-    screenshot
 
     # Prevent 'ENOSPC: System limit for number of file watchers reached' error
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p || true
@@ -76,9 +75,15 @@ case "${TRAVIS_OS_NAME}" in
 
     echo "Starting appium"
     ls -al node_modules/.bin
+
+    adb devices
+    screenshot
+
     node_modules/.bin/appium --session-override > "${ANDROID_HOME}/appium.out" &
 
+    adb devices
     screenshot
+
     npm run build:android
     screenshot
 
