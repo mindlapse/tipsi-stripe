@@ -40,7 +40,8 @@ init_new_example_project() {
   ls -al example/node_modules/@react-native-community/cli/
   echo ---------- example/node_modules/@react-native-community/cli/build/
   ls -al example/node_modules/@react-native-community/cli/build/
-  echo ----------
+  echo ---------- example/node_modules/@react-native-community/cli/build/tools
+  ls -al example/node_modules/@react-native-community/cli/build/tools
 
   rm -rf $proj_dir_old/__tests__
   cd ..
@@ -71,7 +72,7 @@ sudo apt-get install openjdk-8-jdk
 node --version
 
 echo "Installing npm@next"
-sudo npm i npm@next -g
+sudo npm i npm@6.10.2 -g
 
 
 
