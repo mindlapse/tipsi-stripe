@@ -57,8 +57,8 @@ case "${TRAVIS_OS_NAME}" in
     ( ${ANDROID_HOME}/emulator/emulator -avd ${EMULATOR_NAME} -memory 3072 -verbose -show-kernel -selinux permissive -no-audio -no-window -gpu swiftshader_indirect -wipe-data > /dev/null 2>&1 & )
 
     android-wait-for-emulator
-    echo "Sleeping for 240s"
-    sleep 240
+    echo "Sleeping for 60s"
+    sleep 60
     screenshot
     adb shell input keyevent 82 &
     screenshot
