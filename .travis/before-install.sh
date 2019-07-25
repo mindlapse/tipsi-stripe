@@ -54,7 +54,7 @@ sudo apt-get install openjdk-8-jdk
 
 node --version
 
-echo "Installing npm@next"
+echo "Installing npm@6.10.2"
 sudo npm i npm@6.10.2 -g
 
 
