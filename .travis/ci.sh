@@ -37,11 +37,6 @@ case "${TRAVIS_OS_NAME}" in
     export ANDROID_HOME=~/android-sdk
     export PATH=${PATH}:${ANDROID_HOME}/emulator:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
 
-    ls ${ANDROID_HOME}
-
-    ls example_tmp/node_modules/
-    ls example_tmp/node_modules/.bin
-
     # Cleanup (if rerun)
     adb -s emulator-5554 emu kill || true
     adb kill-server || true
@@ -63,11 +58,13 @@ case "${TRAVIS_OS_NAME}" in
 
     android-wait-for-emulator
     echo "Sleeping for 180s"
-    sleep 180
+    sleep 240
+    screenshot
+    adb shell input keyevent 82 &
+    screenshot
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
-    adb shell input keyevent 82 &
     adb devices
     screenshot
 

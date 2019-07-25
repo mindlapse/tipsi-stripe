@@ -71,7 +71,7 @@ case "${TRAVIS_OS_NAME}" in
     export ANDROID_SDK_ROOT=~/android-sdk
 
     echo "### Downloading android tools"
-    wget "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
+    wget -q "https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_TOOLS.zip" -O android-sdk-tools.zip
 
     echo "### Unzipping android tools"
     sudo apt install -y unzip
