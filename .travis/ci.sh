@@ -79,8 +79,8 @@ case "${TRAVIS_OS_NAME}" in
     npm run configure
 
     echo "Starting appium"
-    ls -al example_tmp/node_modules/.bin
-    example_tmp/node_modules/.bin/appium --session-override > "${ANDROID_HOME}/appium.out" &
+    ls -al node_modules/.bin
+    node_modules/.bin/appium --session-override > "${ANDROID_HOME}/appium.out" &
 
     screenshot
     npm run build:android
