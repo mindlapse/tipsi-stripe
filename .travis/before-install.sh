@@ -26,29 +26,7 @@ init_new_example_project() {
 
   mkdir tmp
   cd tmp
-  echo "Initializing react native project $react_native_version"
-  echo react-native version `react-native --version`
-  ls
   react-native init $proj_dir_old --version $react_native_version || true
-  echo ---------- example
-  ls -al example
-  echo ---------- example/node_modules/
-  ls -al example/node_modules/
-  echo ---------- example/node_modules/@react-native-community/
-  ls -al example/node_modules/@react-native-community/
-  echo ---------- example/node_modules/@react-native-community/cli/
-  ls -al example/node_modules/@react-native-community/cli/
-  echo ---------- example/node_modules/@react-native-community/cli/build/
-  ls -al example/node_modules/@react-native-community/cli/build/
-  echo ---------- example/node_modules/@react-native-community/cli/build/tools
-  ls -al example/node_modules/@react-native-community/cli/build/tools
-  ls -al example/node_modules/@react-native-community/cli/build/tools
-
-
-  cat example/node_modules/@react-native-community/cli/build/commands/install/install.js
-  cat example/node_modules/@react-native-community/cli/package.json
-  cat example/package-lock.json
-  cat example/node_modules/@react-native-community/cli/package-lock.json
 
   rm -rf $proj_dir_old/__tests__
   cd ..
@@ -81,7 +59,7 @@ node --version
 echo "Installing npm@next"
 sudo npm i npm@6.10.2 -g
 
-
+TRAVIS_OS_NAME=skip
 
 case "${TRAVIS_OS_NAME}" in
   osx)
