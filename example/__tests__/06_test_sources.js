@@ -26,18 +26,14 @@ test('Test if user can create a source object for a card', async (t) => {
   await driver.waitForVisible(sourceObjectId, timeout)
 })
 
-test('Test if user can create a source object for Alipay', async (t) => {
-  const expectedSourcesResults = [false, true]
+const alipay = async (t, target) => {
+  try {
+    await openTestSuite('Sources')
 
-  await openTestSuite('Sources')
-
-  for (const sourcesVisibility of expectedSourcesResults) {
     const sourceButtonId = idFromAccessId('sourceButton')
 
     await driver.waitForVisible(sourceButtonId, timeout)
     t.pass('User should see `Create a source with params` button')
-
-
 
     await driver.click(sourceButtonId)
     t.pass('User should be able to tap on `Create source for Alipay payment` button')
@@ -50,16 +46,13 @@ test('Test if user can create a source object for Alipay', async (t) => {
     await driver.waitForVisible(title, timeout)
     t.pass('User should be able to see `Alipay test payment page`')
 
-    await screenshot()
     await swipeUp(title)
     t.pass('User can swipe up')
-    await screenshot()
-
 
     const testPaymentButtonId = select({
       ios: idFromLabel,
       android: idFromContentDesc,
-    })(sourcesVisibility ? 'AUTHORIZE TEST PAYMENT' : 'FAIL TEST PAYMENT')
+    })(target)
 
     await driver.waitForVisible(testPaymentButtonId, timeout)
 
@@ -81,7 +74,6 @@ test('Test if user can create a source object for Alipay', async (t) => {
       ios: idFromLabel,
       android: idFromContentDesc,
     })(select({ ios: 'Return to example', android: 'arrow--left--white Return to Merchant' }))
-    console.log(await driver.source())
 
     await driver.waitForVisible(returnToTheAppButtonId, timeout)
     await driver.click(returnToTheAppButtonId)
@@ -93,5 +85,18 @@ test('Test if user can create a source object for Alipay', async (t) => {
       await driver.click(openButtonId)
       t.pass('User should click on "Open" button')
     }
+  } catch (e) {
+    console.log(e)
+    console.log(await driver.source())
+    throw e
   }
+})
+
+
+test('Test if user can authorize test payment on a source object for Alipay', async (t) => {
+  await alipay(t, 'AUTHORIZE TEST PAYMENT')
+})
+
+test('Test if user can fail test payment on a source object for Alipay', async (t) => {
+  await alipay(t, 'FAIL TEST PAYMENT')
 })
