@@ -73,21 +73,17 @@ case "${TRAVIS_OS_NAME}" in
     cd example_tmp
     npm run configure
 
-    echo "Starting appium"
-    ls -al node_modules/.bin
-
-    adb devices
-    screenshot
-
-    node_modules/.bin/appium --session-override > "${ANDROID_HOME}/appium.out" &
-
     adb devices
     screenshot
 
     npm run build:android
+
+    screenshot
+    echo "Starting appium"
+    node_modules/.bin/appium --session-override > "${ANDROID_HOME}/appium.out" &
     screenshot
 
-    npm run test:android || true
+    npm run test:android
   ;;
   osx)
     echo "Starting appium"
