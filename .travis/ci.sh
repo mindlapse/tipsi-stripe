@@ -61,7 +61,6 @@ case "${TRAVIS_OS_NAME}" in
     sleep 60
     screenshot
     adb shell input keyevent 82 &
-    screenshot
     adb shell settings put global window_animation_scale 0 &
     adb shell settings put global transition_animation_scale 0 &
     adb shell settings put global animator_duration_scale 0 &
@@ -73,16 +72,15 @@ case "${TRAVIS_OS_NAME}" in
     cd example_tmp
     npm run configure
 
-    adb devices
+    echo "Running build:android"
     screenshot
-
     npm run build:android
 
-    screenshot
     echo "Starting appium"
     node_modules/.bin/appium --session-override > "${ANDROID_HOME}/appium.out" &
-    screenshot
 
+    echo "Running test:android"
+    screenshot
     npm run test:android
   ;;
   osx)

@@ -126,8 +126,8 @@ echo "Installing react-native-cli"
 sudo npm install -g react-native-cli
 
 # Test propTypes
-echo "Calling npm i"
-npm i
+echo "Calling npm ci"
+npm ci
 
 echo "Calling npm test"
 npm test
