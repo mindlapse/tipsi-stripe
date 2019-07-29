@@ -9,7 +9,7 @@ import swipeUp from './common/swipeUp'
 const { driver, idFromAccessId, idFromText, platform, select, swipe, screenshot } = helper
 const idFromContentDesc = text => `//*[@content-desc="${text}"]`  // TODO move to tipsi-appium-helper
 
-const timeout = 300000
+const timeout = 600000
 
 test('Test if user can create a source object for a card', async (t) => {
   await openTestSuite('Sources')
