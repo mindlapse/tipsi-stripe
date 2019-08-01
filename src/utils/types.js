@@ -1,6 +1,26 @@
 import PropTypes from 'prop-types'
+import { Platform } from 'react-native'
 
-export const availableApplePayNetworks = ['american_express', 'discover', 'master_card', 'visa']
+export const availableApplePayNetworks = [
+  'american_express',
+  'cartes_bancaires',
+  'china_union_pay',
+  'discover',
+  'eftpos',
+  'electron',
+  'elo',
+  'id_credit',
+  'interac',
+  'jcb',
+  'mada',
+  'maestro',
+  'master_card',
+  'private_label',
+  'quic_pay',
+  'suica',
+  'visa',
+  'vpay',
+]
 export const availableApplePayAddressFields = ['all', 'name', 'email', 'phone', 'postal_address']
 export const availableApplePayShippingTypes = [
   'shipping',
@@ -30,6 +50,12 @@ export const availableApplePayNetworkPropTypes = PropTypes.oneOf(availableAppleP
 export const canMakeApplePayPaymentsOptionsPropTypes = {
   networks: PropTypes.arrayOf(availableApplePayNetworkPropTypes),
 }
+export const potentiallyAvailableNativePayPaymentsOptionsPropTypes = Platform.select({
+  ios: {
+    networks: PropTypes.arrayOf(availableApplePayNetworkPropTypes),
+  },
+  android: {},
+})
 
 export const paymentRequestWithApplePayItemPropTypes = {
   label: PropTypes.string.isRequired,
@@ -62,8 +88,7 @@ export const paymentRequestWithApplePayOptionsPropTypes = {
 }
 
 export const paymentRequestWithCardFormOptionsPropTypes = {
-  requiredBillingAddressFields: PropTypes.oneOf(['full', 'zip']),
-  managedAccountCurrency: PropTypes.string,
+  requiredBillingAddressFields: PropTypes.oneOf(['full', 'name', 'zip']),
   smsAutofillDisabled: PropTypes.bool,
   prefilledInformation: PropTypes.shape({
     email: PropTypes.string,
