@@ -62,8 +62,8 @@ test('Test if user can use Apple Pay', async (t) => {
   elem = await driver.$(statusId)
   t.equal(
     elem.getText(),
-    'Apple Pay payment cenceled',
-    'Apple Pay payment should be cenceled'
+    'Apple Pay payment canceled',
+    'Apple Pay payment should be canceled'
   )
 
   elem = await driver.$(deviceSupportsApplePayStatusId)
@@ -73,18 +73,16 @@ test('Test if user can use Apple Pay', async (t) => {
     'Device should support Pay'
   )
 
-  const cards = {
-    americanExpressAvailabilityStatus: 'American Express',
-    discoverAvailabilityStatus: 'Discover',
-    masterCardAvailabilityStatus: 'Master Card',
-    visaAvailabilityStatus: 'Visa',
+  const networks = [ 'american_express', 'cartes_bancaires', 'china_union_pay', 'discover', 'eftpos', 'electron', 'elo', 'id_credit', 'interac', 'jcb', 'mada', 'maestro', 'master_card', 'private_label', 'quic_pay', 'suica', 'visa', 'vpay' ];
+
+  for (const network of networks) {
+    elem = await driver.$(idFromAccessId(network))
+    const text = elem.getText()
+    t.equal(text, `${network} is available`, `${network} should be available`)
   }
 
-  for (const [id, title] of Object.entries(cards)) {
-    elem = await driver.$(idFromAccessId(id))
-    const text = elem.getText()
-    t.equal(text, `${title} is available`, `${title} should be available`)
-  }
+  elem = await driver.$(idFromAccessId("FAKE_BANK"))
+  t.equal(elem.getText(), `FAKE_BANK is not available`, `FAKE_BANK should not be available`)
 
   elem = await driver.$(setupApplePayButtonId)
   await elem.waitForDisplayed(30000)

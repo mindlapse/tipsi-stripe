@@ -9,8 +9,19 @@
 #import "TPSStripeManager.h"
 #import <React/RCTUtils.h>
 #import <React/RCTConvert.h>
+#import <Stripe/Stripe.h>
 
 #import "TPSError.h"
+
+// If you change these, make sure to also change:
+//  android/src/main/java/com/gettipsi/stripe/StripeModule.java
+// Relevant Docs:
+// - https://stripe.dev/stripe-ios/docs/Classes/STPAppInfo.html https://stripe.dev/stripe-android/com/stripe/android/AppInfo.html
+// - https://stripe.com/docs/building-plugins#setappinfo
+NSString * const TPSAppInfoName = @"tipsi-stripe";
+NSString * const TPSAppInfoPartnerId = @"tipsi-stripe";
+NSString * const TPSAppInfoURL = @"https://github.com/tipsi/tipsi-stripe";
+NSString * const TPSAppInfoVersion = @"7.x";
 
 NSString * const kErrorKeyCode = @"errorCode";
 NSString * const kErrorKeyDescription = @"description";
@@ -93,10 +104,60 @@ RCT_ENUM_CONVERTER(STPBankAccountStatus,
 
 @end
 
-NSString * const TPSPaymentNetworkAmex = @"american_express";
-NSString * const TPSPaymentNetworkDiscover = @"discover";
-NSString * const TPSPaymentNetworkMasterCard = @"master_card";
-NSString * const TPSPaymentNetworkVisa = @"visa";
+
+typedef NSString * TPSPaymentNetwork NS_EXTENSIBLE_STRING_ENUM;
+
+// Add entries here when PKPaymentNetwork receives new keys!
+#define TPSPaymentNetworkDefine(Key, string) TPSPaymentNetwork const TPSPaymentNetwork ## Key = string
+TPSPaymentNetworkDefine(Amex, @"american_express");
+TPSPaymentNetworkDefine(CartesBancaires, @"cartes_bancaires");
+TPSPaymentNetworkDefine(ChinaUnionPay, @"china_union_pay");
+TPSPaymentNetworkDefine(Discover, @"discover");
+TPSPaymentNetworkDefine(Eftpos, @"eftpos");
+TPSPaymentNetworkDefine(Electron, @"electron");
+TPSPaymentNetworkDefine(Elo, @"elo");
+TPSPaymentNetworkDefine(IDCredit, @"id_credit");
+TPSPaymentNetworkDefine(Interac, @"interac");
+TPSPaymentNetworkDefine(JCB, @"jcb");
+TPSPaymentNetworkDefine(Mada, @"mada");
+TPSPaymentNetworkDefine(Maestro, @"maestro");
+TPSPaymentNetworkDefine(MasterCard, @"mastercard");
+TPSPaymentNetworkDefine(PrivateLabel, @"private_label");
+TPSPaymentNetworkDefine(QuicPay, @"quic_pay");
+TPSPaymentNetworkDefine(Suica, @"suica");
+TPSPaymentNetworkDefine(Visa, @"visa");
+TPSPaymentNetworkDefine(VPay, @"vpay");
+#undef TPSPaymentNetworkDefine
+
+NSDictionary<TPSPaymentNetwork, PKPaymentNetwork> * mapTPSPaymentNetworkToPKPaymentNetwork = nil;
+__attribute__((constructor)) // This means this method will be called in file scope
+void initializeTPSPaymentNetworksWithConditionalMappings() {
+    NSMutableDictionary<TPSPaymentNetwork, PKPaymentNetwork> * tmp = NSMutableDictionary.dictionary;
+
+// Inserts a key-value mapping into this dictionary guarding it by which iOS version the constant was added in
+#define TPSPaymentNetworkConditionalMapping(Key, iOSVersion) { if (@available(iOS iOSVersion, *)) { tmp[TPSPaymentNetwork##Key] = PKPaymentNetwork ## Key; }}
+    TPSPaymentNetworkConditionalMapping(Amex, 8.0);
+    TPSPaymentNetworkConditionalMapping(CartesBancaires, 11.2);
+    TPSPaymentNetworkConditionalMapping(ChinaUnionPay, 9.2);
+    TPSPaymentNetworkConditionalMapping(Discover, 9.0);
+    TPSPaymentNetworkConditionalMapping(Eftpos, 12.0);
+    TPSPaymentNetworkConditionalMapping(Electron, 12.0);
+    TPSPaymentNetworkConditionalMapping(Elo, 12.1.1);
+    TPSPaymentNetworkConditionalMapping(IDCredit, 10.3);
+    TPSPaymentNetworkConditionalMapping(Interac, 9.2);
+    TPSPaymentNetworkConditionalMapping(JCB, 10.1);
+    TPSPaymentNetworkConditionalMapping(Mada, 12.1.1);
+    TPSPaymentNetworkConditionalMapping(Maestro, 12.0);
+    TPSPaymentNetworkConditionalMapping(MasterCard, 8.0);
+    TPSPaymentNetworkConditionalMapping(PrivateLabel, 9.0);
+    TPSPaymentNetworkConditionalMapping(QuicPay, 10.3);
+    TPSPaymentNetworkConditionalMapping(Suica, 10.1);
+    TPSPaymentNetworkConditionalMapping(Visa, 8.0);
+    TPSPaymentNetworkConditionalMapping(VPay, 12.0);
+#undef TPSPaymentNetworkConditionalMapping
+
+    mapTPSPaymentNetworkToPKPaymentNetwork = tmp;
+}
 
 @implementation StripeModule
 {
@@ -152,11 +213,20 @@ RCT_EXPORT_METHOD(canMakeApplePayPayments:(NSDictionary *)options
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     NSArray <NSString *> *paymentNetworksStrings =
-    options[@"networks"] ?: [StripeModule supportedPaymentNetworksStrings];
+    options[@"networks"] ?: [StripeModule applePaySupportedPaymentNetworksStrings];
 
     NSArray <PKPaymentNetwork> *networks = [self paymentNetworks:paymentNetworksStrings];
     resolve(@([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:networks]));
 }
+
+RCT_EXPORT_METHOD(potentiallyAvailableNativePayNetworks:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    NSArray <NSString *> *paymentNetworksStrings = [StripeModule applePaySupportedPaymentNetworksStrings];
+
+    NSArray <PKPaymentNetwork> *networks = [self paymentNetworks:paymentNetworksStrings];
+    resolve([PKPaymentAuthorizationViewController canMakePaymentsUsingNetworks:networks] ? paymentNetworksStrings : nil);
+}
+
 
 RCT_EXPORT_METHOD(completeApplePayRequest:(RCTPromiseResolveBlock)resolve
                                     rejecter:(RCTPromiseRejectBlock)reject) {
@@ -358,7 +428,6 @@ RCT_EXPORT_METHOD(paymentRequestWithCardForm:(NSDictionary *)options
     NSUInteger requiredBillingAddressFields = [self billingType:options[@"requiredBillingAddressFields"]];
     NSString *companyName = options[@"companyName"] ? options[@"companyName"] : @"";
     STPUserInformation *prefilledInformation = [self userInformation:options[@"prefilledInformation"]];
-    NSString *managedAccountCurrency = options[@"managedAccountCurrency"];
     NSString *nextPublishableKey = options[@"publishableKey"] ? options[@"publishableKey"] : publishableKey;
     UIModalPresentationStyle formPresentation = [self formPresentation:options[@"presentation"]];
     STPTheme *theme = [self formTheme:options[@"theme"]];
@@ -367,12 +436,10 @@ RCT_EXPORT_METHOD(paymentRequestWithCardForm:(NSDictionary *)options
     [configuration setRequiredBillingAddressFields:requiredBillingAddressFields];
     [configuration setCompanyName:companyName];
     [configuration setPublishableKey:nextPublishableKey];
-    [configuration setCreateCardSources:options[@"createCardSource"] ? options[@"createCardSource"] : false];
 
     STPAddCardViewController *addCardViewController = [[STPAddCardViewController alloc] initWithConfiguration:configuration theme:theme];
     [addCardViewController setDelegate:self];
     [addCardViewController setPrefilledInformation:prefilledInformation];
-    [addCardViewController setManagedAccountCurrency:managedAccountCurrency];
     // STPAddCardViewController must be shown inside a UINavigationController.
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addCardViewController];
     [navigationController setModalPresentationStyle:formPresentation];
@@ -467,19 +534,21 @@ RCT_EXPORT_METHOD(openApplePaySetup) {
 - (STPCardParams *)createCard:(NSDictionary *)params {
     STPCardParams *cardParams = [[STPCardParams alloc] init];
 
-    [cardParams setNumber: params[@"number"]];
-    [cardParams setExpMonth: [params[@"expMonth"] integerValue]];
-    [cardParams setExpYear: [params[@"expYear"] integerValue]];
-    [cardParams setCvc: params[@"cvc"]];
+    cardParams.number = params[@"number"];
+    cardParams.expMonth = [params[@"expMonth"] integerValue];
+    cardParams.expYear = [params[@"expYear"] integerValue];
+    cardParams.cvc = params[@"cvc"];
 
-    [cardParams setCurrency: params[@"currency"]];
-    [cardParams setName: params[@"name"]];
-    [cardParams setAddressLine1: params[@"addressLine1"]];
-    [cardParams setAddressLine2: params[@"addressLine2"]];
-    [cardParams setAddressCity: params[@"addressCity"]];
-    [cardParams setAddressState: params[@"addressState"]];
-    [cardParams setAddressCountry: params[@"addressCountry"]];
-    [cardParams setAddressZip: params[@"addressZip"]];
+    cardParams.currency = params[@"currency"];
+    cardParams.name = params[@"name"];
+
+    cardParams.address.line1 = params[@"addressLine1"];
+    cardParams.address.line2 = params[@"addressLine2"];
+    cardParams.address.city = params[@"addressCity"];
+    cardParams.address.state = params[@"addressState"];
+    cardParams.address.country = params[@"addressCountry"];
+
+    cardParams.address.postalCode = params[@"addressZip"];
 
     return cardParams;
 }
@@ -628,7 +697,18 @@ RCT_EXPORT_METHOD(openApplePaySetup) {
 }
 
 - (STPAPIClient *)newAPIClient {
-    return [[STPAPIClient alloc] initWithPublishableKey:[Stripe defaultPublishableKey]];
+    static STPAppInfo * info = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        info = [[STPAppInfo alloc] initWithName:TPSAppInfoName
+                                      partnerId:TPSAppInfoPartnerId
+                                        version:TPSAppInfoVersion
+                                            url:TPSAppInfoURL];
+    });
+
+    STPAPIClient * client = [[STPAPIClient alloc] initWithPublishableKey:[Stripe defaultPublishableKey]];
+    client.appInfo = info;
+    return client;
 }
 
 - (NSDictionary *)convertTokenObject:(STPToken*)token {
@@ -1051,6 +1131,9 @@ RCT_EXPORT_METHOD(openApplePaySetup) {
     if ([inputType isEqualToString:@"zip"]) {
         return STPBillingAddressFieldsZip;
     }
+    if ([inputType isEqualToString:@"name"]) {
+        return STPBillingAddressFieldsName;
+    }
     if ([inputType isEqualToString:@"full"]) {
         return STPBillingAddressFieldsFull;
     }
@@ -1106,13 +1189,13 @@ RCT_EXPORT_METHOD(openApplePaySetup) {
     return UIModalPresentationFullScreen;
 }
 
-+ (NSArray <NSString *> *)supportedPaymentNetworksStrings {
-    return @[
-                TPSPaymentNetworkAmex,
-                TPSPaymentNetworkDiscover,
-                TPSPaymentNetworkMasterCard,
-                TPSPaymentNetworkVisa,
-                ];
++ (NSArray <NSString *> *)applePaySupportedPaymentNetworksStrings {
+    static NSArray<NSString*> * tmp = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        tmp = [mapTPSPaymentNetworkToPKPaymentNetwork.allKeys sortedArrayUsingSelector:@selector(compare:)];
+    });
+    return tmp;
 }
 
 - (NSArray <PKPaymentNetwork> *)paymentNetworks:(NSArray <NSString *> *)paymentNetworkStrings {
